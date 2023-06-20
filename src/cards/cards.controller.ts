@@ -28,6 +28,7 @@ export class CardsController {
   @Get('/branch/:branchId')
   @UseGuards(JwtAuthGuard)
   findBranchCards(@Req() req, @Param('branchId') branchId: string) {
+    console.log('found card barnchId; ', branchId);
     return this.cardsService.findBranchCards(req.user, branchId);
   }
 

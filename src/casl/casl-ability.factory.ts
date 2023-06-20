@@ -6,7 +6,7 @@ import {
   InferSubjects,
 } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
-import { User, UserTypeEnum } from '../users/entities/user.entity';
+import { User, UserRoleEnum } from '../users/entities/user.entity';
 import { Branch } from 'src/branches/entities/branch.entity';
 import { Agent } from 'src/agents/entities/agent.entity';
 import { Cashier } from 'src/cashiers/entities/cashier.entity';
@@ -32,19 +32,28 @@ export class CaslAbilityFactory {
       Ability<[Action, Subjects]>
     >(Ability as AbilityClass<AppAbility>);
 
-    if (user?.role === UserTypeEnum.SUPER_ADMIN) {
+    console.log('user: ', user);
+
+    if (user?.role === UserRoleEnum.SUPER_ADMIN) {
       // gives full-right over-all subjects
       can(Action.Manage, 'all');
-    } else if (user?.role === UserTypeEnum.AGENT) {
+    } else if (user.role === UserRoleEnum.AGENT) {
+      console.log('user role: ', user.role);
       // Agent
       can(Action.Create, Agent);
       can(Action.Manage, Agent);
       can(Action.Read, Agent);
       can(Action.Delete, Agent);
 
-      // Cashier
+      // // Branch
+      // can(Action.Manage, Agent);
+
+      // // Cashier
       can(Action.Create, Cashier);
-    } else if (user?.role === UserTypeEnum.CASHIER) {
+      can(Action.Manage, Cashier);
+      can(Action.Read, Cashier);
+      can(Action.Delete, Cashier);
+    } else if (user?.role === UserRoleEnum.CASHIER) {
     }
 
     return build({

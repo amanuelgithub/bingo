@@ -29,7 +29,7 @@ export class Agent implements IAgent {
   branchId: string;
 
   // entity relationships //
-  @OneToOne(() => User, (user) => user.agent, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, (user) => user.agent, { cascade: true })
   @JoinColumn()
   user: User;
 

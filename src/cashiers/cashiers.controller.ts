@@ -29,8 +29,9 @@ export class CashiersController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, PoliciesGuard)
-  @CheckPolicies((ability: AppAbility) => ability.can(Action.Manage, Cashier))
+  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard, PoliciesGuard)
+  // @CheckPolicies((ability: AppAbility) => ability.can(Action.Manage, Cashier))
   findAll() {
     return this.cashiersService.findAll();
   }

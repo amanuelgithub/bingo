@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserStatusEnum, UserTypeEnum } from './entities/user.entity';
+import { User, UserStatusEnum, UserRoleEnum } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -25,7 +25,7 @@ export class UsersService {
       phone: '0963158999',
       email: 'amanuelgirma070@gmail.com',
       isEmailVerified: true,
-      role: UserTypeEnum.SUPER_ADMIN,
+      role: UserRoleEnum.SUPER_ADMIN,
       status: UserStatusEnum.ACTIVE,
       password: hashedPassword,
     };
@@ -42,8 +42,33 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const userRole = (await this.usersRepository.findOne({ where: { id } }))
+      .role;
+
+    let user: User;
+
+    if (userRole === UserRoleEnum.AGENT) {
+      user = await this.usersRepository
+        .createQueryBuilder('user')
+        .where('user.id = :id', { id })
+        .leftJoin('user.agent', 'agent')
+        .addSelect('agent.branchId')
+        .getOne();
+    } else if (userRole === UserRoleEnum.CASHIER) {
+      user = await this.usersRepository
+        .createQueryBuilder('user')
+        .where('user.id = :id', { id })
+        .leftJoin('user.cashier', 'cashier')
+        .addSelect('cashier.branchId')
+        .getOne();
+    }
+
+    if (!user) {
+      throw new NotFoundException('user not found!');
+    }
+    const { password, ...restUserInfo } = user;
+    return restUserInfo;
   }
 
   async findOneByEmail(email: string): Promise<User> {

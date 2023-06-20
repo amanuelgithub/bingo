@@ -186,12 +186,14 @@ export class CardsService {
       const cards = this.getCards();
       let branchCards = cards[branchId];
 
-      branchCards = branchCards.cards.filter((card) => card.cardId === cardId);
+      branchCards = branchCards.cards.filter((card) => {
+        return card.cardId.toString() !== cardId;
+      });
 
-      cards[branchId] = branchCards;
+      cards[branchId] = { cards: branchCards };
 
       // write to the file system
-      fs.writeFileSync(this.CARDS_JSON_NAME, JSON.stringify(branchCards));
+      fs.writeFileSync(this.CARDS_JSON_NAME, JSON.stringify(cards));
 
       return {
         statusCode: HttpStatus.OK,

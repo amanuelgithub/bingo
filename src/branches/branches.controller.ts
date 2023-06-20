@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { BranchesService } from './branches.service';
 import { CreateBranchDto } from './dto/create-branch.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -21,7 +21,7 @@ export class BranchesController {
   @Get()
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Manage, Branch))
-  findAll() {
+  findAll(@Req() req) {
     return this.branchesService.findAll();
   }
 }

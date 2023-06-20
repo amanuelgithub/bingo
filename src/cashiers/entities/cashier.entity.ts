@@ -32,7 +32,7 @@ export class Cashier implements ICashier {
   branchId: string;
 
   // entity relationships //
-  @OneToOne(() => User, (user) => user.cashier, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, (user) => user.cashier, { cascade: true })
   @JoinColumn()
   user: User;
 

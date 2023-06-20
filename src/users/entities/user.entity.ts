@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export enum UserTypeEnum {
+export enum UserRoleEnum {
   SUPER_ADMIN = 'SUPER_ADMIN',
   AGENT = 'AGENT',
   CASHIER = 'CASHIER',
@@ -26,7 +26,7 @@ interface IUser {
   phone: string;
   email: string;
   isEmailVerified: boolean;
-  role: UserTypeEnum;
+  role: UserRoleEnum;
   status: UserStatusEnum;
   password: string;
 
@@ -51,8 +51,8 @@ export class User implements IUser {
   @Column({ default: false })
   isEmailVerified: boolean;
 
-  @Column({ enum: UserTypeEnum })
-  role: UserTypeEnum;
+  @Column({ enum: UserRoleEnum })
+  role: UserRoleEnum;
 
   @Column({ enum: UserStatusEnum, default: UserStatusEnum.INACTIVE })
   status: UserStatusEnum;
@@ -67,9 +67,9 @@ export class User implements IUser {
   modifiedAt: Date;
 
   // entity relationships //
-  @OneToOne(() => Agent, (agent) => agent.user)
+  @OneToOne(() => Agent, (agent) => agent.user, { onDelete: 'CASCADE' })
   agent: Agent;
 
-  @OneToOne(() => Cashier, (cashier) => cashier.user)
+  @OneToOne(() => Cashier, (cashier) => cashier.user, { onDelete: 'CASCADE' })
   cashier: Cashier;
 }

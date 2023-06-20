@@ -8,7 +8,7 @@ import {
   //   IsPhoneNumber,
   IsEnum,
 } from 'class-validator';
-import { UserStatusEnum, UserTypeEnum } from '../entities/user.entity';
+import { UserStatusEnum, UserRoleEnum } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -27,8 +27,8 @@ export class CreateUserDto {
   email: string;
 
   @IsNotEmpty()
-  @IsEnum(UserTypeEnum)
-  role: UserTypeEnum;
+  @IsEnum(UserRoleEnum)
+  role: UserRoleEnum;
 
   @IsNotEmpty()
   @IsEnum(UserStatusEnum)
