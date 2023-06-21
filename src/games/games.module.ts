@@ -3,7 +3,7 @@ import { GamesService } from './games.service';
 import { GamesController } from './games.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Game } from './entities/game.entity';
-import { CaslModule } from 'src/casl/casl.module';
+import { CaslModule } from '../casl/casl.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Game]), CaslModule],

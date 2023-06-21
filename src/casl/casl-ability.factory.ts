@@ -7,9 +7,9 @@ import {
 } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { User, UserRoleEnum } from '../users/entities/user.entity';
-import { Branch } from 'src/branches/entities/branch.entity';
-import { Agent } from 'src/agents/entities/agent.entity';
-import { Cashier } from 'src/cashiers/entities/cashier.entity';
+import { Branch } from '../branches/entities/branch.entity';
+import { Agent } from '../agents/entities/agent.entity';
+import { Cashier } from '../cashiers/entities/cashier.entity';
 
 export enum Action {
   Manage = 'manage',

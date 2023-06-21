@@ -3,9 +3,9 @@ import { CreateCashierDto } from './dto/create-cashier.dto';
 import { UpdateCashierDto } from './dto/update-cashier.dto';
 import { Cashier } from './entities/cashier.entity';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BranchesService } from 'src/branches/branches.service';
+import { BranchesService } from '../branches/branches.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

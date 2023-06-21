@@ -4,7 +4,7 @@ import { BranchesController } from './branches.controller';
 import { Branch } from './entities/branch.entity';
 import { Repository } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CaslModule } from 'src/casl/casl.module';
+import { CaslModule } from '../casl/casl.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Branch]), CaslModule],

@@ -1,5 +1,5 @@
-import { Agent } from 'src/agents/entities/agent.entity';
-import { Cashier } from 'src/cashiers/entities/cashier.entity';
+import { Agent } from '../../agents/entities/agent.entity';
+import { Cashier } from '../../cashiers/entities/cashier.entity';
 import {
   Column,
   CreateDateColumn,

@@ -11,10 +11,10 @@ import {
 import { CashiersService } from './cashiers.service';
 import { CreateCashierDto } from './dto/create-cashier.dto';
 import { UpdateCashierDto } from './dto/update-cashier.dto';
-import { CheckPolicies } from 'src/casl/check-policy.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { PoliciesGuard } from 'src/casl/policies.guard';
-import { Action, AppAbility } from 'src/casl/casl-ability.factory';
+import { CheckPolicies } from '../casl/check-policy.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { PoliciesGuard } from '../casl/policies.guard';
+import { Action, AppAbility } from '../casl/casl-ability.factory';
 import { Cashier } from './entities/cashier.entity';
 
 @Controller('cashiers')

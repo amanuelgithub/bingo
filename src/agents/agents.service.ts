@@ -3,9 +3,9 @@ import { CreateAgentDto } from './dto/create-agent.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Agent } from './entities/agent.entity';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { BranchesService } from 'src/branches/branches.service';
+import { BranchesService } from '../branches/branches.service';
 
 @Injectable()
 export class AgentsService {

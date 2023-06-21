@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { BranchesService } from './branches.service';
 import { CreateBranchDto } from './dto/create-branch.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { PoliciesGuard } from 'src/casl/policies.guard';
-import { CheckPolicies } from 'src/casl/check-policy.decorator';
-import { Action, AppAbility } from 'src/casl/casl-ability.factory';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { PoliciesGuard } from '../casl/policies.guard';
+import { CheckPolicies } from '../casl/check-policy.decorator';
+import { Action, AppAbility } from '../casl/casl-ability.factory';
 import { Branch } from './entities/branch.entity';
 
 @Controller('branches')

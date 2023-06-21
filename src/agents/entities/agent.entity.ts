@@ -1,5 +1,5 @@
-import { Branch } from 'src/branches/entities/branch.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Branch } from '../../branches/entities/branch.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,

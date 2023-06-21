@@ -3,8 +3,8 @@ import * as fs from 'fs';
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { BranchCreatedEvent } from 'src/branches/events/branch-created.event';
-import { IdGenerator } from 'src/utils/id-generater';
+import { BranchCreatedEvent } from '../branches/events/branch-created.event';
+import { IdGenerator } from '../utils/id-generater';
 
 // format of cards.json
 // {

@@ -11,10 +11,10 @@ import {
 import { AgentsService } from './agents.service';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
-import { CheckPolicies } from 'src/casl/check-policy.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { PoliciesGuard } from 'src/casl/policies.guard';
-import { Action, AppAbility } from 'src/casl/casl-ability.factory';
+import { CheckPolicies } from '../casl/check-policy.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { PoliciesGuard } from '../casl/policies.guard';
+import { Action, AppAbility } from '../casl/casl-ability.factory';
 import { Agent } from './entities/agent.entity';
 
 @Controller('agents')

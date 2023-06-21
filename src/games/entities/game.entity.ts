@@ -1,4 +1,4 @@
-import { Play } from 'src/plays/entities/play.entity';
+import { Play } from '../../plays/entities/play.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum GameStateEnum {

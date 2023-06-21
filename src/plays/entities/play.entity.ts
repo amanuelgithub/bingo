@@ -1,4 +1,4 @@
-import { Game } from 'src/games/entities/game.entity';
+import { Game } from '../../games/entities/game.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum CardStateEnum {
