@@ -1,15 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Play } from 'src/plays/entities/play.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum GameStateEnum {
   CREATED = 'CREATED',
   PAUSED = 'PAUSED',
-  ACTIVE = 'ACTIVE',
+  PLAYING = 'PLAYING',
   END = 'END',
 }
 
 interface IGame {
   id: string;
   branchId: string;
+  cashierId: string;
   money: number;
   state: GameStateEnum;
   startTime: Date;
@@ -25,16 +27,21 @@ export class Game implements IGame {
   branchId: string;
 
   @Column()
+  cashierId: string;
+
+  @Column()
   money: number;
 
   @Column()
   state: GameStateEnum;
 
-  @Column()
+  @Column({ nullable: true })
   startTime: Date;
 
-  @Column()
+  @Column({ nullable: true })
   endTime: Date;
 
   // entity relationship //
+  @OneToMany(() => Play, (play) => play.game)
+  plays: Play[];
 }

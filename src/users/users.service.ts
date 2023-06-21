@@ -62,6 +62,8 @@ export class UsersService {
         .leftJoin('user.cashier', 'cashier')
         .addSelect('cashier.branchId')
         .getOne();
+    } else {
+      user = await this.usersRepository.findOne({ where: { id } });
     }
 
     if (!user) {

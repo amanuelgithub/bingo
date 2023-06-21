@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "env": {
+    "APP_PREFIX": "api",
+    "APP_PORT": "3001",
+    "BINGO_DB_NAME": "bingo",
+    "JWT_SECRET_KEY": "secretKey",
+    "DATABASE_HOST": "localhost",
+    "DATABASE_PORT": "5432",
+    "DATABASE_NAME": "bingo",
+    "DATABASE_USER": "postgres",
+    "DATABASE_PASSWORD": "password"
+  },
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    }
+  ]
+}
