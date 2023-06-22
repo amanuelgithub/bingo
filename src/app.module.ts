@@ -20,7 +20,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      // currently not in use because environment_variables does not work on cpanel
       envFilePath: `${process.cwd()}/env/${process.env.NODE_ENV}.env`,
+      // below are used
       load: Object.values([DatabaseConfig, appConfig]),
       validationSchema: validationSchema,
       isGlobal: true,

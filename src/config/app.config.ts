@@ -7,6 +7,6 @@ export interface IAppConfig {
 }
 
 export const appConfig = registerAs(APP_CONFIG, () => ({
-  APP_PREFIX: process.env.APP_PREFIX,
-  APP_PORT: process.env.APP_PORT,
+  APP_PREFIX: 'api' || process.env.APP_PREFIX,
+  APP_PORT: 3001 || process.env.APP_PORT,
 }));

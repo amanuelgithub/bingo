@@ -51,10 +51,12 @@ export class User implements IUser {
   @Column({ default: false })
   isEmailVerified: boolean;
 
-  @Column({ enum: UserRoleEnum })
+  // @Column({ enum: UserRoleEnum })
+  @Column()
   role: UserRoleEnum;
 
-  @Column({ enum: UserStatusEnum, default: UserStatusEnum.INACTIVE })
+  // @Column({ enum: UserStatusEnum, default: UserStatusEnum.INACTIVE })
+  @Column()
   status: UserStatusEnum;
 
   @Column()

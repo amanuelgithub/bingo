@@ -36,7 +36,8 @@ export class Play implements IPlay {
   @Column()
   money: string;
 
-  @Column({ enum: CardStateEnum, default: CardStateEnum.NORMAL })
+  // @Column({ enum: CardStateEnum, default: CardStateEnum.NORMAL })
+  @Column()
   cardState: CardStateEnum;
 
   // entity relationship //
