@@ -14,8 +14,10 @@ export class IdGenerator {
     return IdGenerator.instance;
   }
 
-  public generateId(branchId: string, lastIndex: number) {
-    this.id = `${this.CARD_PREFIX}-${this.fancyCounter(lastIndex)}-${branchId}`;
+  public generateId(branchId: string, lastCardIndex: number) {
+    this.id = `${this.CARD_PREFIX}-${this.fancyCounter(
+      lastCardIndex,
+    )}-${branchId}`;
 
     return this.id;
   }
@@ -29,6 +31,6 @@ export class IdGenerator {
     return `${fancyCounter.substring(
       0,
       fancyCounter.length - counterDigitLen,
-    )}${index}`;
+    )}${index + 1}`;
   }
 }

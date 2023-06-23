@@ -10,14 +10,31 @@ import {
 import { PlaysService } from './plays.service';
 import { CreatePlayDto } from './dto/create-play.dto';
 import { UpdatePlayDto } from './dto/update-play.dto';
+import { SellCardDto } from './dto/sell-card.dto';
 
 @Controller('plays')
 export class PlaysController {
   constructor(private readonly playsService: PlaysService) {}
 
   @Post()
-  create(@Body() createPlayDto: CreatePlayDto) {
-    return this.playsService.create(createPlayDto);
+  sellCard(@Body() sellCardDto: SellCardDto) {
+    return this.playsService.sellCard(sellCardDto);
+  }
+
+  @Get('/unsold-cards/:branchId/:gameId')
+  findUnsoldCards(
+    @Param('branchId') branchId: string,
+    @Param('gameId') gameId: string,
+  ) {
+    return this.playsService.findUnsoldCards(branchId, gameId);
+  }
+
+  @Get('/game-plays/:branchId/:gameId')
+  findGameSoldPlays(
+    @Param('branchId') branchId: string,
+    @Param('gameId') gameId: string,
+  ) {
+    return this.playsService.findGameSoldPlays(branchId, gameId);
   }
 
   @Get()

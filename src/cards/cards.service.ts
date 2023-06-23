@@ -85,11 +85,25 @@ export class CardsService {
       const allCards = this.getCards();
       const branchCards = allCards[branchId];
 
-      // last index(i.e. is size of the cards array for that branch) or 0
-      const lastIndex = branchCards.cards ? branchCards.cards.length : 0;
+      // get last-card-index
+      let lastCardIndex;
+      if (branchCards.cards.length > 0) {
+        lastCardIndex = branchCards.cards[branchCards.cards.length - 1].cardId
+          .toString()
+          .split('-')[1]
+          .split('')
+          .map((ch) => parseInt(ch))
+          .filter((ch) => ch !== 0)
+          .join('');
+      } else {
+        lastCardIndex = '0';
+      }
 
       // generate id
-      const cardId = this.idGenerator.generateId(branchId, lastIndex);
+      const cardId = this.idGenerator.generateId(
+        branchId,
+        parseInt(lastCardIndex),
+      );
       const card = { cardId, numbers };
 
       branchCards.cards.push(card);

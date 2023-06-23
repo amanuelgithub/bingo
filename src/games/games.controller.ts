@@ -15,7 +15,7 @@ import { CheckPolicies } from '../casl/check-policy.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/policies.guard';
 import { Action, AppAbility } from '../casl/casl-ability.factory';
-import { Cashier } from '../cashiers/entities/cashier.entity';
+import { Game } from './entities/game.entity';
 
 @Controller('games')
 export class GamesController {
@@ -23,9 +23,17 @@ export class GamesController {
 
   @Post()
   @UseGuards(JwtAuthGuard, PoliciesGuard)
-  @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Cashier))
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Game))
   create(@Body() createGameDto: CreateGameDto) {
     return this.gamesService.create(createGameDto);
+  }
+
+  // get the most recent created game
+  @Get('/newly-created')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Game))
+  getNewlyCreatedGame() {
+    return this.gamesService.getNewlyCreatedGame();
   }
 
   @Get()

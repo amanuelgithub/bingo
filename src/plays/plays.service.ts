@@ -1,11 +1,64 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePlayDto } from './dto/create-play.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { UpdatePlayDto } from './dto/update-play.dto';
+import { SellCardDto } from './dto/sell-card.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CardStateEnum, Play } from './entities/play.entity';
+import { Repository } from 'typeorm';
+import { CardsService } from 'src/cards/cards.service';
 
 @Injectable()
 export class PlaysService {
-  create(createPlayDto: CreatePlayDto) {
-    return 'This action adds a new play';
+  constructor(
+    @InjectRepository(Play) private playsRepository: Repository<Play>,
+    private cardsService: CardsService,
+  ) {}
+
+  // find unsold cards
+  async findUnsoldCards(branchId: string, gameId: string) {
+    const plays = await this.playsRepository.find({ where: { gameId } });
+    const branchCards = this.cardsService.findBranchCards(undefined, branchId);
+
+    const unsoldCards = branchCards.cards.filter((card) => {
+      if (plays.length === 0) {
+        return true;
+      }
+
+      if (plays.find((play) => play.cardId === card.cardId)) {
+        return false;
+      }
+
+      return true;
+    });
+
+    return unsoldCards;
+  }
+
+  /** returns all plays info for the selected branchId and gameId */
+  async findGameSoldPlays(branchId: string, gameId: string) {
+    const plays = await this.playsRepository
+      .createQueryBuilder('play')
+      .andWhere('play.branchId = :branchId', { branchId })
+      .andWhere('play.gameId = :gameId', { gameId })
+      .getMany();
+
+    return plays;
+  }
+
+  async sellCard(sellCardDto: SellCardDto) {
+    // check if card is already sold
+    const card = await this.playsRepository.findOne({
+      where: { cardId: sellCardDto.cardId },
+    });
+
+    if (card) {
+      throw new ConflictException('Card is already sold');
+    }
+
+    const sellCard = this.playsRepository.create({
+      ...sellCardDto,
+      cardState: CardStateEnum.NORMAL,
+    });
+    return await this.playsRepository.save(sellCard);
   }
 
   findAll() {

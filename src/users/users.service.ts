@@ -54,6 +54,7 @@ export class UsersService {
         .where('user.id = :id', { id })
         .leftJoin('user.agent', 'agent')
         .addSelect('agent.branchId')
+        .addSelect('agent.id')
         .getOne();
     } else if (userRole === UserRoleEnum.CASHIER) {
       user = await this.usersRepository
@@ -61,6 +62,7 @@ export class UsersService {
         .where('user.id = :id', { id })
         .leftJoin('user.cashier', 'cashier')
         .addSelect('cashier.branchId')
+        .addSelect('cashier.id')
         .getOne();
     } else {
       user = await this.usersRepository.findOne({ where: { id } });

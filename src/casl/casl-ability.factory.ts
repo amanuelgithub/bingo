@@ -10,6 +10,8 @@ import { User, UserRoleEnum } from '../users/entities/user.entity';
 import { Branch } from '../branches/entities/branch.entity';
 import { Agent } from '../agents/entities/agent.entity';
 import { Cashier } from '../cashiers/entities/cashier.entity';
+import { Game } from 'src/games/entities/game.entity';
+import { Play } from 'src/plays/entities/play.entity';
 
 export enum Action {
   Manage = 'manage',
@@ -20,7 +22,14 @@ export enum Action {
 }
 
 type Subjects =
-  | InferSubjects<typeof User | typeof Branch | typeof Agent | typeof Cashier>
+  | InferSubjects<
+      | typeof User
+      | typeof Branch
+      | typeof Agent
+      | typeof Cashier
+      | typeof Game
+      | typeof Play
+    >
   | 'all';
 
 export type AppAbility = Ability<[Action, Subjects]>;
@@ -54,6 +63,17 @@ export class CaslAbilityFactory {
       can(Action.Read, Cashier);
       can(Action.Delete, Cashier);
     } else if (user?.role === UserRoleEnum.CASHIER) {
+      // // Game
+      can(Action.Create, Game);
+      can(Action.Manage, Game);
+      can(Action.Read, Game);
+      can(Action.Update, Game);
+
+      // // Play
+      can(Action.Create, Play);
+      can(Action.Manage, Play);
+      can(Action.Read, Play);
+      can(Action.Update, Play);
     }
 
     return build({

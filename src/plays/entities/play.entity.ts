@@ -12,7 +12,7 @@ interface IPlay {
   cashierId: string;
   gameId: string;
   cardId: string;
-  money: string;
+  money: number;
   cardState: CardStateEnum;
 }
 
@@ -27,14 +27,14 @@ export class Play implements IPlay {
   @Column()
   gameId: string;
 
-  @Column()
+  @Column({ unique: true })
   cardId: string;
 
   @Column()
   cashierId: string;
 
   @Column()
-  money: string;
+  money: number;
 
   // @Column({ enum: CardStateEnum, default: CardStateEnum.NORMAL })
   @Column()
