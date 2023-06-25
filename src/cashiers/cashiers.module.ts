@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cashier } from './entities/cashier.entity';
 import { User } from '../users/entities/user.entity';
 import { CaslModule } from '../casl/casl.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [

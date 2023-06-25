@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCashierDto } from './dto/create-cashier.dto';
 import { UpdateCashierDto } from './dto/update-cashier.dto';
 import { Cashier } from './entities/cashier.entity';
@@ -41,25 +45,57 @@ export class CashiersService {
       ...restBranchInfo
     } = branch;
 
-    const user = this.usersRepository.create({
-      username,
-      phone,
-      email,
-      role,
-      status,
-      password: hashedPassword,
-    });
-    await this.usersRepository.save(user);
-    const { password, createdAt, modifiedAt, ...restUserInfo } = user;
+    let cashier;
+    try {
+      const user = this.usersRepository.create({
+        username,
+        phone,
+        email,
+        role,
+        status,
+        password: hashedPassword,
+      });
+      await this.usersRepository.save(user);
+      const { password, createdAt, modifiedAt, ...restUserInfo } = user;
 
-    //  create cashier
-    const cashier = this.cashiersRepository.create({
-      userId: user.id,
-      branchId: branch.id,
-      user: restUserInfo,
-      branch: restBranchInfo,
-    });
-    return await this.cashiersRepository.save(cashier);
+      //  create cashier
+      cashier = this.cashiersRepository.create({
+        userId: user.id,
+        branchId: branch.id,
+        user: restUserInfo,
+        branch: restBranchInfo,
+      });
+
+      await this.cashiersRepository.save(cashier);
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        // username taken
+        const userName = await this.usersRepository.findOne({
+          where: { username },
+        });
+        if (userName) {
+          throw new ConflictException('username is taken!');
+        }
+
+        // Email taken
+        const userEmail = await this.usersRepository.findOne({
+          where: { email },
+        });
+        if (userEmail) {
+          throw new ConflictException('email is taken!');
+        }
+
+        // Phone taken
+        const userPhone = await this.usersRepository.findOne({
+          where: { phone },
+        });
+        if (userPhone) {
+          throw new ConflictException('phone is taken!');
+        }
+      }
+    }
+
+    return cashier;
   }
 
   async findAll(): Promise<Cashier[]> {
