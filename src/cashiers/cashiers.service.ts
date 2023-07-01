@@ -98,7 +98,7 @@ export class CashiersService {
     return cashier;
   }
 
-  async findAll(): Promise<Cashier[]> {
+  async findBranchCashiers(branchId: string): Promise<Cashier[]> {
     const cashiers = await this.cashiersRepository
       .createQueryBuilder('cashier')
       .leftJoin('cashier.user', 'user')
@@ -112,6 +112,7 @@ export class CashiersService {
       ])
       .leftJoin('cashier.branch', 'branch')
       .addSelect(['branch.name'])
+      .andWhere('branch.id = :branchId', { branchId })
       .getMany();
 
     if (!cashiers) {
@@ -119,19 +120,4 @@ export class CashiersService {
     }
     return cashiers;
   }
-
-  /** 
-  findOne(id: number) {
-    return `This action returns a #${id} cashier`;
-  }
-
-  update(id: number, updateCashierDto: UpdateCashierDto) {
-    return `This action updates a #${id} cashier`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cashier`;
-  }
-
-  */
 }

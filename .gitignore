@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# game-data-store directory
+/_store-game-state
+
 # JSON store
 cards.json
 

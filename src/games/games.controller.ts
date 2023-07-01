@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
-import { UpdateGameDto } from './dto/update-game.dto';
 import { CheckPolicies } from '../casl/check-policy.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/policies.guard';
@@ -28,31 +27,11 @@ export class GamesController {
     return this.gamesService.create(createGameDto);
   }
 
-  // get the most recent created game
-  @Get('/newly-created')
+  // returns an active by a specific cashierId
+  @Get('/active/:cashierId')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Game))
-  getNewlyCreatedGame() {
-    return this.gamesService.getNewlyCreatedGame();
-  }
-
-  @Get()
-  findAll() {
-    return this.gamesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gamesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
-    return this.gamesService.update(+id, updateGameDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.gamesService.remove(+id);
+  getActiveGameByCashier(@Param('cashierId') cashierId: string) {
+    return this.gamesService.getActiveGameByCashier(cashierId);
   }
 }

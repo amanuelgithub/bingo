@@ -45,10 +45,13 @@ export class PlaysService {
   }
 
   async sellCard(sellCardDto: SellCardDto) {
-    // check if card is already sold
-    const card = await this.playsRepository.findOne({
-      where: { cardId: sellCardDto.cardId },
-    });
+    const { gameId, cardId, branchId, cashierId, money } = sellCardDto;
+    // check if card is sold for a specific cashier
+    const card = await this.playsRepository
+      .createQueryBuilder('play')
+      .where('play.gameId = :gameId', { gameId })
+      .andWhere('play.cardId = :cardId', { cardId })
+      .getOne();
 
     if (card) {
       throw new ConflictException('Card is already sold');

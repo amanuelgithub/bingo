@@ -27,7 +27,7 @@ export class Play implements IPlay {
   @Column()
   gameId: string;
 
-  @Column({ unique: true })
+  @Column()
   cardId: string;
 
   @Column()

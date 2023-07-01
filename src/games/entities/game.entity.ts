@@ -1,5 +1,11 @@
 import { Play } from '../../plays/entities/play.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export enum GameStateEnum {
   CREATED = 'CREATED',
@@ -15,6 +21,7 @@ interface IGame {
   money: number;
   state: GameStateEnum;
   startTime: Date;
+
   endTime: Date;
 }
 

@@ -16,6 +16,7 @@ import { CaslModule } from './casl/casl.module';
 import { CardsModule } from './cards/cards.module';
 import { CardsService } from './cards/cards.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -35,6 +36,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         ...configService.get(DB_CONFIG),
       }),
     }),
+
+    ScheduleModule.forRoot(),
 
     EventEmitterModule.forRoot(),
 

@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateGameDto } from './dto/create-game.dto';
-import { UpdateGameDto } from './dto/update-game.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Game, GameStateEnum } from './entities/game.entity';
@@ -28,51 +27,37 @@ export class GamesService {
     }
     await this.gamesRepository.save(game);
 
-    // continue from this
-    // const gameCreatedEvent = new GameCreatedEvent();
-    // gameCreatedEvent.gameId = game.id;
-    // this.eventEmitter.emit('game.created', gameCreatedEvent);
+    const gameCreatedEvent = new GameCreatedEvent();
+    gameCreatedEvent.gameId = game.id;
+    this.eventEmitter.emit('game.created', gameCreatedEvent);
 
     return game;
   }
 
-  async getNewlyCreatedGame() {
-    const createdGame = await this.gamesRepository.findOne({
-      where: {
-        state: GameStateEnum.CREATED,
-      },
-    });
-    const playingGame = await this.gamesRepository.findOne({
-      where: {
-        state: GameStateEnum.PLAYING,
-      },
-    });
-    const pausedGame = await this.gamesRepository.findOne({
-      where: {
-        state: GameStateEnum.PAUSED,
-      },
-    });
+  // returns an active by a specific cashierId
+  async getActiveGameByCashier(cashierId: string) {
+    const createdGame = await this.gamesRepository
+      .createQueryBuilder('game')
+      .where('game.cashierId = :cashierId', { cashierId })
+      .andWhere('game.state = :state', { state: GameStateEnum.CREATED })
+      .getOne();
 
-    if (!createdGame && !playingGame && pausedGame) {
-      throw new NotFoundException('Game not found!');
+    const playingGame = await this.gamesRepository
+      .createQueryBuilder('game')
+      .where('game.cashierId = :cashierId', { cashierId })
+      .andWhere('game.state = :state', { state: GameStateEnum.PLAYING })
+      .getOne();
+
+    const pausedGame = await this.gamesRepository
+      .createQueryBuilder('game')
+      .where('game.cashierId = :cashierId', { cashierId })
+      .andWhere('game.state = :state', { state: GameStateEnum.PAUSED })
+      .getOne();
+
+    if (!createdGame && !playingGame && !pausedGame) {
+      throw new NotFoundException('No active game found!');
     }
 
     return createdGame || playingGame || pausedGame;
-  }
-
-  findAll() {
-    return `This action returns all games`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} game`;
-  }
-
-  update(id: number, updateGameDto: UpdateGameDto) {
-    return `This action updates a #${id} game`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} game`;
   }
 }

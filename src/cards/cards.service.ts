@@ -100,10 +100,7 @@ export class CardsService {
       }
 
       // generate id
-      const cardId = this.idGenerator.generateId(
-        branchId,
-        parseInt(lastCardIndex),
-      );
+      const cardId = this.idGenerator.generateId(parseInt(lastCardIndex));
       const card = { cardId, numbers };
 
       branchCards.cards.push(card);

@@ -14,10 +14,8 @@ export class IdGenerator {
     return IdGenerator.instance;
   }
 
-  public generateId(branchId: string, lastCardIndex: number) {
-    this.id = `${this.CARD_PREFIX}-${this.fancyCounter(
-      lastCardIndex,
-    )}-${branchId}`;
+  public generateId(lastCardIndex: number) {
+    this.id = `${this.CARD_PREFIX}-${this.fancyCounter(lastCardIndex)}`;
 
     return this.id;
   }
