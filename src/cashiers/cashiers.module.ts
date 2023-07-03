@@ -7,12 +7,14 @@ import { Cashier } from './entities/cashier.entity';
 import { User } from '../users/entities/user.entity';
 import { CaslModule } from '../casl/casl.module';
 import { UsersModule } from 'src/users/users.module';
+import { PlaysModule } from 'src/plays/plays.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Cashier, User]),
     CaslModule,
     BranchesModule,
+    PlaysModule,
   ],
   controllers: [CashiersController],
   providers: [CashiersService],

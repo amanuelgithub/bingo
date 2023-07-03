@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { Game, GameStateEnum } from './entities/game.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { GameCreatedEvent } from './events/game-created.event';
+import { EndGameDto } from './dto/end-game.dto';
 
 @Injectable()
 export class GamesService {
@@ -59,5 +60,16 @@ export class GamesService {
     }
 
     return createdGame || playingGame || pausedGame;
+  }
+
+  async endGame(gameId: string) {
+    const game = await this.gamesRepository.findOne({ where: { id: gameId } });
+
+    if (!game) {
+      throw new NotFoundException('Game is not found!');
+    }
+    game.state = GameStateEnum.END;
+
+    return await this.gamesRepository.save(game);
   }
 }

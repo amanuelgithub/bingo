@@ -34,4 +34,11 @@ export class GamesController {
   getActiveGameByCashier(@Param('cashierId') cashierId: string) {
     return this.gamesService.getActiveGameByCashier(cashierId);
   }
+
+  @Patch('/end-game/:gameId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Update, Game))
+  endGame(@Param('gameId') gameId: string) {
+    return this.gamesService.endGame(gameId);
+  }
 }

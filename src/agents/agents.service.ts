@@ -36,13 +36,6 @@ export class AgentsService {
 
     // find branch
     const branch = await this.branchesService.findOne(branchId);
-    const {
-      agents,
-      cashiers,
-      createdAt: ct,
-      modifiedAt: mt,
-      ...restBranchInfo
-    } = branch;
 
     let agent;
     try {
@@ -60,9 +53,9 @@ export class AgentsService {
       //  create agent
       agent = this.agentsRepository.create({
         userId: user.id,
-        branchId: branch.id,
+        // branchId: branch.id,
         user: restUserInfo,
-        branch: restBranchInfo,
+        branches: [branch],
       });
 
       await this.agentsRepository.save(agent);
@@ -109,8 +102,6 @@ export class AgentsService {
         'user.role',
         'user.status',
       ])
-      .leftJoin('agent.branch', 'branch')
-      .addSelect(['branch.name'])
       .getMany();
 
     if (!agents) {
@@ -119,17 +110,58 @@ export class AgentsService {
     return agents;
   }
 
-  /** 
-  findOne(id: number) {
-    return `This action returns a #${id} agent`;
+  // find an agent by id and include its many-to-many relation with branches table
+  async findOne(id: string): Promise<Agent> {
+    const agent = await this.agentsRepository
+      .createQueryBuilder('agent')
+      .where('agent.id = :id', { id })
+      .leftJoin('agent.user', 'user')
+      .addSelect([
+        'user.username',
+        'user.phone',
+        'user.email',
+        'user.isEmailVerified',
+        'user.role',
+        'user.status',
+      ])
+      .leftJoinAndSelect('agent.branches', 'branches')
+      .getOne();
+
+    // console.log('agent: ', agent);
+
+    if (!agent) {
+      throw new NotFoundException('agent not found!');
+    }
+    return agent;
   }
 
-  update(id: number, updateAgentDto: UpdateAgentDto) {
-    return `This action updates a #${id} agent`;
+  async addBranchToAgent(agentId: string, branchId: string) {
+    const agent = await this.agentsRepository
+      .createQueryBuilder('agent')
+      .where('agent.id = :id', { id: agentId })
+      .leftJoinAndSelect('agent.branches', 'branches')
+      .getOne();
+
+    const branch = await this.branchesService.findOne(branchId);
+
+    agent.branches.push(branch);
+
+    await this.agentsRepository.save(agent);
+    return agent;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} agent`;
+  // find agent branches
+  async findAgentBranches(agentId: string) {
+    const agentBranches = await this.agentsRepository
+      .createQueryBuilder('agent')
+      .where('agent.id = :agentId', { agentId })
+      .leftJoinAndSelect('agent.branches', 'branches')
+      .getOne();
+
+    if (!agentBranches) {
+      throw new NotFoundException('agent not found!');
+    }
+
+    return agentBranches;
   }
-  */
 }

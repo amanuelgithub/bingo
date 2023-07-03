@@ -15,5 +15,6 @@ import { CaslModule } from '../casl/casl.module';
   ],
   controllers: [AgentsController],
   providers: [AgentsService],
+  exports: [AgentsService],
 })
 export class AgentsModule {}

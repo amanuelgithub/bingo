@@ -53,7 +53,7 @@ export class UsersService {
         .createQueryBuilder('user')
         .where('user.id = :id', { id })
         .leftJoin('user.agent', 'agent')
-        .addSelect('agent.branchId')
+        // .addSelect('agent.branchId')
         .addSelect('agent.id')
         .getOne();
     } else if (userRole === UserRoleEnum.CASHIER) {

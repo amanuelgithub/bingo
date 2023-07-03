@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -37,7 +38,7 @@ export class Branch implements IBranch {
   modifiedAt: Date;
 
   // entity relationships //
-  @OneToMany(() => Agent, (agent) => agent.branch)
+  @ManyToMany(() => Agent, (agent) => agent.branches)
   agents: Agent[];
 
   @OneToMany(() => Cashier, (cashier) => cashier.branch)

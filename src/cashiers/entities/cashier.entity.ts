@@ -11,6 +11,7 @@ import {
 
 interface ICashier {
   id: string;
+  lastCheckout: Date;
   userId: string;
   branchId: string;
   user: User;
@@ -24,6 +25,9 @@ interface ICashier {
 export class Cashier implements ICashier {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  lastCheckout: Date;
 
   @Column()
   userId: string;

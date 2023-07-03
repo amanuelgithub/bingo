@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UseGuards,
+  Req,
+  Param,
+} from '@nestjs/common';
 import { BranchesService } from './branches.service';
 import { CreateBranchDto } from './dto/create-branch.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -16,6 +24,13 @@ export class BranchesController {
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Branch))
   create(@Body() createBranchDto: CreateBranchDto) {
     return this.branchesService.create(createBranchDto);
+  }
+
+  @Get(':agentId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Branch))
+  findAgentBranches(@Param('agentId') agentId: string, @Req() req) {
+    return this.branchesService.findAgentBranches(agentId);
   }
 
   @Get()

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { AgentsService } from './agents.service';
 import { CreateAgentDto } from './dto/create-agent.dto';
-import { UpdateAgentDto } from './dto/update-agent.dto';
 import { CheckPolicies } from '../casl/check-policy.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/policies.guard';
@@ -35,21 +34,20 @@ export class AgentsController {
     return this.agentsService.findAll();
   }
 
-  /** 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Agent))
   findOne(@Param('id') id: string) {
-    return this.agentsService.findOne(+id);
+    return this.agentsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAgentDto: UpdateAgentDto) {
-    return this.agentsService.update(+id, updateAgentDto);
+  @Patch('/add-branch/:agentId/:branchId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Agent))
+  addBranchToAgent(
+    @Param('agentId') agentId: string,
+    @Param('branchId') branchId: string,
+  ) {
+    return this.agentsService.addBranchToAgent(agentId, branchId);
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.agentsService.remove(+id);
-  }
-
-*/
 }

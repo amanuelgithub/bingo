@@ -54,8 +54,11 @@ export class CaslAbilityFactory {
       can(Action.Read, Agent);
       can(Action.Delete, Agent);
 
+      // Play
+      can(Action.Read, Play);
+
       // // Branch
-      // can(Action.Manage, Agent);
+      can(Action.Read, Branch);
 
       // // Cashier
       can(Action.Create, Cashier);
@@ -74,6 +77,9 @@ export class CaslAbilityFactory {
       can(Action.Manage, Play);
       can(Action.Read, Play);
       can(Action.Update, Play);
+
+      // // Cashier
+      can(Action.Read, Cashier);
     }
 
     return build({

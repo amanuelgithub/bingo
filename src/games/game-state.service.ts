@@ -119,7 +119,7 @@ export class GameStateService {
         this.BASE_DIRECTORY_NAME + filename,
         'utf8',
       );
-      const gameData = JSON.parse(gameJSONData);
+      const gameData = JSON.parse(gameJSONData) as IGameData;
 
       return gameData;
     } catch (err) {

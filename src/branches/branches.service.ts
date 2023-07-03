@@ -46,4 +46,18 @@ export class BranchesService {
     }
     return branch;
   }
+
+  // find all branches of agent by agentId
+  async findAgentBranches(agentId: string): Promise<Branch[]> {
+    const branches = await this.branchesRepository
+      .createQueryBuilder('branch')
+      .leftJoinAndSelect('branch.agents', 'agent')
+      .where('agent.id = :agentId', { agentId })
+      .getMany();
+
+    if (!branches) {
+      throw new NotFoundException('branches not found!');
+    }
+    return branches;
+  }
 }

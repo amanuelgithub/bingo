@@ -1,5 +1,11 @@
 import { Game } from '../../games/entities/game.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export enum CardStateEnum {
   NORMAL = 'NORMAL',
@@ -14,6 +20,7 @@ interface IPlay {
   cardId: string;
   money: number;
   cardState: CardStateEnum;
+  createdAt: Date;
 }
 
 @Entity()
@@ -43,4 +50,7 @@ export class Play implements IPlay {
   // entity relationship //
   @ManyToOne(() => Game, (game) => game.plays, { onDelete: 'CASCADE' })
   game: Game;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }

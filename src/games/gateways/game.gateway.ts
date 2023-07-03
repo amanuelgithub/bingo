@@ -8,6 +8,7 @@ import { GameStateEnum } from '../entities/game.entity';
 import { Server, Socket } from 'socket.io';
 import { GameStateService } from '../game-state.service';
 import { IGameData } from '../interface/game-data.interface';
+import { GamesService } from '../games.service';
 
 // message payload interface
 interface IGameSocketMessage {
@@ -23,43 +24,51 @@ export class GameGateway {
   @WebSocketServer()
   server: Server;
 
-  constructor(private gameStateService: GameStateService) {}
+  constructor(
+    private gameStateService: GameStateService,
+    private gameService: GamesService,
+  ) {}
 
   // room = gameId + cashierId
   // gameId => to access gameData filename
   @SubscribeMessage('joinRoom')
-  handleJoinRoom(
-    client: Socket,
-    message: IGameSocketMessage,
-    // message: { room: string; gameState: GameStateEnum },
-  ) {
+  handleJoinRoom(client: Socket, message: IGameSocketMessage) {
     client.join(message.room);
     client.emit('joinedRoom', message.room);
 
-    console.log('received msg: ', message);
-
-    // message received from client
     if (message.gameData.gameState === GameStateEnum.CREATED) {
-      // check if game is ended from the file
-      if (
-        (
-          this.gameStateService.getGameStateData(
-            message.gameId,
-          ) as IGameSocketMessage
-        ).gameData?.gameState === GameStateEnum.END
-      ) {
-        // todo: handle if game is already ended
-        console.log('game is ended');
-      } else {
-        // just emit the original game data from the file -> no update
-        this.server.to(message.room).emit(message.room, {
-          room: message.room,
-          gameId: message.gameId,
-          gameData: this.gameStateService.getGameStateData(
-            message.gameId,
-          ) as IGameData,
-        } as IGameSocketMessage);
-      }
+      // just emit the original game data from the file -> no update
+      this.server.to(message.room).emit(message.room, {
+        room: message.room,
+        gameId: message.gameId,
+        gameData: this.gameStateService.getGameStateData(
+          message.gameId,
+        ) as IGameData,
+      } as IGameSocketMessage);
+    } else if (message.gameData.gameState === GameStateEnum.END) {
+      // check if game is ended from the file too
+      const gameStateFromFile = this.gameStateService.getGameStateData(
+        message.gameId,
+      );
+
+      // if (gameStateFromFile.gameState === GameStateEnum.END) {
+      console.log('game is ended: ', gameStateFromFile.gameState);
+      // update the game state in the game db tables
+      this.gameService.endGame(message.gameId.split('.')[0]);
+
+      // first update game-data in the file
+      const updatedGameData = this.gameStateService.updateGameState(
+        message.gameId,
+        message.gameData,
+      );
+
+      // then emit it back to client in the room
+      this.server.to(message.room).emit(message.room, {
+        room: message.room,
+        gameId: message.gameId,
+        gameData: updatedGameData,
+      } as IGameSocketMessage);
+      // }
     } else {
       // first update game-data in the file
       const updatedGameData = this.gameStateService.updateGameState(

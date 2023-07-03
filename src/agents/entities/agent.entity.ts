@@ -4,7 +4,8 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
+  JoinTable,
+  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -12,9 +13,8 @@ import {
 interface IAgent {
   id: string;
   userId: string;
-  branchId: string;
   user: User;
-  branch: Branch;
+  branches: Branch[];
 }
 
 @Entity()
@@ -25,14 +25,15 @@ export class Agent implements IAgent {
   @Column()
   userId: string;
 
-  @Column()
-  branchId: string;
+  // @Column()
+  // branchId: string;
 
   // entity relationships //
   @OneToOne(() => User, (user) => user.agent, { cascade: true })
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Branch, (branch) => branch.agents)
-  branch: Branch;
+  @ManyToMany(() => Branch, (branch) => branch.agents)
+  @JoinTable()
+  branches: Branch[];
 }

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Patch,
+} from '@nestjs/common';
 import { CashiersService } from './cashiers.service';
 import { CreateCashierDto } from './dto/create-cashier.dto';
 import { CheckPolicies } from '../casl/check-policy.decorator';
@@ -18,10 +26,38 @@ export class CashiersController {
     return this.cashiersService.create(createCashierDto);
   }
 
-  @Get('/branches/:branchId')
+  @Get(':id')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
+  findOne(@Param('id') id: string) {
+    return this.cashiersService.findOne(id);
+  }
+
+  @Get('/branch/:branchId')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
   findBranchCashiers(@Param('branchId') branchId: string) {
     return this.cashiersService.findBranchCashiers(branchId);
+  }
+
+  @Get('/agent-branches/:agentId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
+  findAgentCashiers(@Param('agentId') agentId: string) {
+    return this.cashiersService.findAgentCashiers(agentId);
+  }
+
+  @Get('/cash-book/:cashierId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
+  findCashierCashBook(@Param('cashierId') cashierId: string) {
+    return this.cashiersService.findCashierCashBook(cashierId);
+  }
+
+  @Patch('/clear-cash-book/:cashierId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
+  clearCashierCashBook(@Param('cashierId') cashierId: string) {
+    return this.cashiersService.clearCashierCashBook(cashierId);
   }
 }
