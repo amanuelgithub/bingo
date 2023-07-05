@@ -62,13 +62,16 @@ export class GamesService {
     return createdGame || playingGame || pausedGame;
   }
 
-  async endGame(gameId: string) {
+  async updateGameState(
+    gameId: string,
+    gameState: GameStateEnum = GameStateEnum.END,
+  ) {
     const game = await this.gamesRepository.findOne({ where: { id: gameId } });
 
     if (!game) {
       throw new NotFoundException('Game is not found!');
     }
-    game.state = GameStateEnum.END;
+    game.state = gameState;
 
     return await this.gamesRepository.save(game);
   }

@@ -13,7 +13,9 @@ import { GamesService } from '../games.service';
 // message payload interface
 interface IGameSocketMessage {
   room: string; // gameId + cashierId
-  gameId: string;
+  gameId: string; // gameId.json
+  soundLang: 'am' | 'or' | string;
+  soundUrl: string;
   gameData: IGameData;
 }
 
@@ -45,16 +47,12 @@ export class GameGateway {
           message.gameId,
         ) as IGameData,
       } as IGameSocketMessage);
-    } else if (message.gameData.gameState === GameStateEnum.END) {
-      // check if game is ended from the file too
-      const gameStateFromFile = this.gameStateService.getGameStateData(
-        message.gameId,
-      );
-
-      // if (gameStateFromFile.gameState === GameStateEnum.END) {
-      console.log('game is ended: ', gameStateFromFile.gameState);
+    } else {
       // update the game state in the game db tables
-      this.gameService.endGame(message.gameId.split('.')[0]);
+      this.gameService.updateGameState(
+        message.gameId.split('.')[0],
+        message.gameData.gameState,
+      );
 
       // first update game-data in the file
       const updatedGameData = this.gameStateService.updateGameState(
@@ -62,26 +60,32 @@ export class GameGateway {
         message.gameData,
       );
 
+      let soundUrl = '';
+      if (message.soundLang === 'am') {
+        soundUrl = `http://localhost:3001/api/games/balls-audio/am/${
+          message.gameData.playingNumbers[message.gameData.currentIndex]
+        }amh.m4a`;
+      } else if (message.soundLang === 'or') {
+        soundUrl = `http://localhost:3001/api/games/balls-audio/or/${
+          message.gameData.playingNumbers[message.gameData.currentIndex]
+        }or.m4a`;
+      }
+
+      // else {
+      //   soundUrl = `http://localhost:3001/api/games/balls-audio/${
+      //     message.gameData.playingNumbers[message.gameData.currentIndex]
+      //   }amh.m4a`;
+      // }
+
       // then emit it back to client in the room
       this.server.to(message.room).emit(message.room, {
         room: message.room,
         gameId: message.gameId,
+        soundLang: message.soundLang,
+        soundUrl: soundUrl,
         gameData: updatedGameData,
       } as IGameSocketMessage);
       // }
-    } else {
-      // first update game-data in the file
-      const updatedGameData = this.gameStateService.updateGameState(
-        message.gameId,
-        message.gameData,
-      );
-
-      // then emit it back to client in the room
-      this.server.to(message.room).emit(message.room, {
-        room: message.room,
-        gameId: message.gameId,
-        gameData: updatedGameData,
-      } as IGameSocketMessage);
     }
   }
 

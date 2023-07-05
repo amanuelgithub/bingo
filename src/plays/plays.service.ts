@@ -92,7 +92,7 @@ export class PlaysService {
       });
 
     const dueCash = totalSaleSinceLastCheckout * 0.2;
-    return dueCash;
+    return parseInt(dueCash.toFixed(2));
   }
 
   // super-admin reports //
@@ -115,7 +115,7 @@ export class PlaysService {
         });
       });
 
-    return todayProfits * 0.2;
+    return parseInt((todayProfits * 0.2).toFixed(2));
   }
 
   // find this month's profits in all branches
@@ -138,7 +138,7 @@ export class PlaysService {
         });
       });
 
-    return thisMonthProfits * 0.2;
+    return (thisMonthProfits * 0.2).toFixed(2);
   }
 
   async thisYearProfitForAllBranches() {
@@ -160,7 +160,7 @@ export class PlaysService {
         });
       });
 
-    return thisYearProfit * 0.2;
+    return (thisYearProfit * 0.2).toFixed(2);
   }
 
   async totalProfitForAllBranches() {
@@ -176,7 +176,7 @@ export class PlaysService {
         });
       });
 
-    return totalProfit * 0.2;
+    return (totalProfit * 0.2).toFixed(2);
   }
 
   async twelveMonthProfitForAllBranches() {
@@ -218,7 +218,7 @@ export class PlaysService {
 
       thisMonthProfits = thisMonthProfits * 0.2;
 
-      dataset[i].profit = thisMonthProfits;
+      dataset[i].profit = parseInt(thisMonthProfits.toFixed(2));
     }
 
     return dataset;
@@ -252,7 +252,7 @@ export class PlaysService {
 
     console.log('todayProfitsForAgentBranches: ', todayProfits * 0.2);
 
-    return todayProfits * 0.2;
+    return parseInt((todayProfits * 0.2).toFixed(2));
   }
 
   // find this month's profits in all branches for agent
@@ -280,7 +280,7 @@ export class PlaysService {
         });
       });
 
-    return thisMonthProfits * 0.2;
+    return parseInt((thisMonthProfits * 0.2).toFixed(2));
   }
 
   // find total profit in all branches for agent
@@ -302,7 +302,7 @@ export class PlaysService {
         });
       });
 
-    return totalProfits * 0.2;
+    return parseInt((totalProfits * 0.2).toFixed(2));
   }
 
   async thisYearProfitForAgentBranches(agentId: string) {
@@ -329,7 +329,7 @@ export class PlaysService {
         });
       });
 
-    return thisYearProfit * 0.2;
+    return parseInt((thisYearProfit * 0.2).toFixed(2));
   }
 
   // find all the twelve month profits for all branches of an agent
@@ -377,7 +377,7 @@ export class PlaysService {
 
       thisMonthProfits = thisMonthProfits * 0.2;
 
-      dataset[i].profit = thisMonthProfits;
+      dataset[i].profit = parseInt(thisMonthProfits.toFixed(2));
     }
 
     return dataset;
