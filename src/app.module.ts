@@ -63,7 +63,7 @@ import { Play } from './plays/entities/play.entity';
       entities: [User, Agent, Cashier, Branch, Game, Play],
       // entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      // synchronize: true,
+      synchronize: true,
     }),
 
     ScheduleModule.forRoot(),
