@@ -12,21 +12,14 @@ const game_entity_1 = require("../games/entities/game.entity");
 const play_entity_1 = require("../plays/entities/play.entity");
 dotenv.config({ path: `${process.cwd()}/src/env/${process.env.NODE_ENV}.env` });
 const postgresqlDataSourceOption = {
-    type: 'mysql',
-    host: '127.0.0.1',
-    port: 3306,
-    database: 'bingo',
-    username: 'root',
-    password: 'password',
+    type: 'postgres',
+    host: process.env.DATABASE_HOST || 'localhost',
+    port: process.env.DATABASE_PORT || 5432,
+    database: process.env.DATABASE_NAME,
+    username: process.env.DATABASE_USER || 'postgres',
+    password: process.env.DATABASE_PASSWORD || 'password',
     entities: [user_entity_1.User, agent_entity_1.Agent, cashier_entity_1.Cashier, branch_entity_1.Branch, game_entity_1.Game, play_entity_1.Play],
     autoLoadEntities: true,
-    synchronize: true,
-};
-const sqliteDataSourceOption = {
-    type: 'sqlite',
-    database: process.env.BINGO_DB_NAME || constants_1.DATABASE_NAME,
-    logging: true,
-    migrationsRun: true,
     synchronize: true,
 };
 exports.DatabaseConfig = (0, config_1.registerAs)(constants_1.DB_CONFIG, () => {

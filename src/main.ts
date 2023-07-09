@@ -11,19 +11,18 @@ async function bootstrap() {
   app.enableCors();
 
   // get app config
-  // const configService = app.get(ConfigService);
-  // const appConfig = configService.get<IAppConfig>(APP_CONFIG);
+  const configService = app.get(ConfigService);
+  const appConfig = configService.get<IAppConfig>(APP_CONFIG);
 
   // setup api global prefix
-  // const globalPrefix = appConfig.APP_PREFIX;
-  // app.setGlobalPrefix(globalPrefix);
+  const globalPrefix = appConfig.APP_PREFIX;
+  app.setGlobalPrefix(globalPrefix);
 
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  // const appPort = process.env.PORT || appConfig.APP_PORT;
-  const appPort = 3002;
+  const appPort = process.env.PORT || appConfig.APP_PORT;
 
   await app.listen(appPort, () => console.log('running on port: ', appPort));
 }

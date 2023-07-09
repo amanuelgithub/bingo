@@ -11,7 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
+const database_config_1 = require("./config/database.config");
+const app_config_1 = require("./config/app.config");
+const env_validation_1 = require("./config/env.validation");
+const constants_1 = require("./commons/constants");
 const users_module_1 = require("./users/users.module");
 const agents_module_1 = require("./agents/agents.module");
 const cashiers_module_1 = require("./cashiers/cashiers.module");
@@ -24,12 +29,6 @@ const cards_module_1 = require("./cards/cards.module");
 const cards_service_1 = require("./cards/cards.service");
 const event_emitter_1 = require("@nestjs/event-emitter");
 const schedule_1 = require("@nestjs/schedule");
-const user_entity_1 = require("./users/entities/user.entity");
-const agent_entity_1 = require("./agents/entities/agent.entity");
-const cashier_entity_1 = require("./cashiers/entities/cashier.entity");
-const branch_entity_1 = require("./branches/entities/branch.entity");
-const game_entity_1 = require("./games/entities/game.entity");
-const play_entity_1 = require("./plays/entities/play.entity");
 let AppModule = class AppModule {
     constructor(cardsService) {
         this.cardsService = cardsService;
@@ -39,15 +38,16 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: '127.0.0.1',
-                port: 3306,
-                database: 'bingo',
-                username: 'root',
-                password: '',
-                entities: [user_entity_1.User, agent_entity_1.Agent, cashier_entity_1.Cashier, branch_entity_1.Branch, game_entity_1.Game, play_entity_1.Play],
-                autoLoadEntities: true,
+            config_1.ConfigModule.forRoot({
+                envFilePath: `${process.cwd()}/env/${process.env.NODE_ENV}.env`,
+                load: Object.values([database_config_1.DatabaseConfig, app_config_1.appConfig]),
+                validationSchema: env_validation_1.validationSchema,
+                isGlobal: true,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: async (configService) => (Object.assign({}, configService.get(constants_1.DB_CONFIG))),
             }),
             schedule_1.ScheduleModule.forRoot(),
             event_emitter_1.EventEmitterModule.forRoot(),
