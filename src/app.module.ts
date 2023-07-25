@@ -49,8 +49,9 @@ import { Play } from './plays/entities/play.entity';
       port: 3306,
 
       database: 'bingo',
-      username: 'root',
-      password: '',
+      username: 'debian-sys-maint',
+      password: 'IfdutZjFJDNcBf7J',
+      // password: 'IfdutZjFJDNcBf7J',
       // password: 'password',
 
       // database: 'amanuelgirmadev_bingo',
