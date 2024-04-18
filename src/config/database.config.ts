@@ -54,7 +54,7 @@ const postgresqlDataSourceOption: DataSourceOptions = {
 
   database: 'bingo',
   username: 'root',
-  password: 'password',
+  password: '',
 
   // database: 'amanuelgirmadev_bingo',
   // username: 'amanuelgirmadev_amanuelgirmadev',
@@ -68,6 +68,29 @@ const postgresqlDataSourceOption: DataSourceOptions = {
   autoLoadEntities: true,
   synchronize: true,
 } as DataSourceOptions;
+
+// const postgresqlDataSourceOption: DataSourceOptions = {
+//   // url: process.env.DATABASE_URL,
+//   type: 'postgres',
+//   host: '127.0.0.1',
+//   port: 5432,
+
+//   database: 'bingo',
+//   username: 'postgres',
+//   password: 'postgres',
+
+//   // database: 'amanuelgirmadev_bingo',
+//   // username: 'amanuelgirmadev_amanuelgirmadev',
+//   // password: 'L4hH8tO1lS0aA6d',
+
+//   // ssl: {
+//   //   rejectUnauthorized: false,
+//   // },
+//   entities: [User, Agent, Cashier, Branch, Game, Play],
+//   // entities: ['dist/**/*.entity{.ts,.js}'],
+//   autoLoadEntities: true,
+//   synchronize: true,
+// } as DataSourceOptions;
 
 // previously used sqlite database configuration
 const sqliteDataSourceOption: DataSourceOptions = {

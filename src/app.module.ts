@@ -44,13 +44,23 @@ import { Play } from './plays/entities/play.entity';
     // }),
 
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '127.0.0.1',
-      port: 3306,
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
 
       database: 'bingo',
-      username: 'debian-sys-maint',
-      password: 'IfdutZjFJDNcBf7J',
+      username: 'postgres',
+      password: 'postgres',
+
+      // 0000000000000000000
+      // type: 'mysql',
+      // host: '127.0.0.1',
+      // port: 3306,
+
+      // database: 'bingo',
+      // username: 'debian-sys-maint',
+      // password: 'IfdutZjFJDNcBf7J',
+
       // password: 'IfdutZjFJDNcBf7J',
       // password: 'password',
 
