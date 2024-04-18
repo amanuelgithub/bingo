@@ -17,7 +17,7 @@ const postgresqlDataSourceOption = {
     port: 3306,
     database: 'bingo',
     username: 'root',
-    password: 'password',
+    password: '',
     entities: [user_entity_1.User, agent_entity_1.Agent, cashier_entity_1.Cashier, branch_entity_1.Branch, game_entity_1.Game, play_entity_1.Play],
     autoLoadEntities: true,
     synchronize: true,
