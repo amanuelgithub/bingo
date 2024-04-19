@@ -13,6 +13,7 @@ exports.CreateCardDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateCardDto {
 }
+exports.CreateCardDto = CreateCardDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -25,5 +26,4 @@ __decorate([
     (0, class_validator_1.ArrayMaxSize)(5, { each: true }),
     __metadata("design:type", Array)
 ], CreateCardDto.prototype, "numbers", void 0);
-exports.CreateCardDto = CreateCardDto;
 //# sourceMappingURL=create-card.dto.js.map

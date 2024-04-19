@@ -11,11 +11,11 @@ const common_1 = require("@nestjs/common");
 const casl_ability_factory_1 = require("./casl-ability.factory");
 let CaslModule = class CaslModule {
 };
-CaslModule = __decorate([
+exports.CaslModule = CaslModule;
+exports.CaslModule = CaslModule = __decorate([
     (0, common_1.Module)({
         providers: [casl_ability_factory_1.CaslAbilityFactory],
         exports: [casl_ability_factory_1.CaslAbilityFactory],
     })
 ], CaslModule);
-exports.CaslModule = CaslModule;
 //# sourceMappingURL=casl.module.js.map

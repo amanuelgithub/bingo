@@ -35,6 +35,7 @@ let BranchesController = class BranchesController {
         return this.branchesService.findAll();
     }
 };
+exports.BranchesController = BranchesController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
@@ -63,9 +64,8 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], BranchesController.prototype, "findAll", null);
-BranchesController = __decorate([
+exports.BranchesController = BranchesController = __decorate([
     (0, common_1.Controller)('branches'),
     __metadata("design:paramtypes", [branches_service_1.BranchesService])
 ], BranchesController);
-exports.BranchesController = BranchesController;
 //# sourceMappingURL=branches.controller.js.map

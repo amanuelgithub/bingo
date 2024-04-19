@@ -18,7 +18,8 @@ const casl_module_1 = require("../casl/casl.module");
 const plays_module_1 = require("../plays/plays.module");
 let CashiersModule = class CashiersModule {
 };
-CashiersModule = __decorate([
+exports.CashiersModule = CashiersModule;
+exports.CashiersModule = CashiersModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forFeature([cashier_entity_1.Cashier, user_entity_1.User]),
@@ -30,5 +31,4 @@ CashiersModule = __decorate([
         providers: [cashiers_service_1.CashiersService],
     })
 ], CashiersModule);
-exports.CashiersModule = CashiersModule;
 //# sourceMappingURL=cashiers.module.js.map

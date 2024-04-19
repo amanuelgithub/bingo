@@ -14,10 +14,10 @@ const class_validator_1 = require("class-validator");
 const create_user_dto_1 = require("../../users/dto/create-user.dto");
 class CreateCashierDto extends create_user_dto_1.CreateUserDto {
 }
+exports.CreateCashierDto = CreateCashierDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateCashierDto.prototype, "branchId", void 0);
-exports.CreateCashierDto = CreateCashierDto;
 //# sourceMappingURL=create-cashier.dto.js.map

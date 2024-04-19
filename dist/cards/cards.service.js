@@ -158,15 +158,15 @@ let CardsService = class CardsService {
         }
     }
 };
+exports.CardsService = CardsService;
 __decorate([
     (0, event_emitter_1.OnEvent)('branch.created'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [branch_created_event_1.BranchCreatedEvent]),
     __metadata("design:returntype", void 0)
 ], CardsService.prototype, "registerBranchOnJSON", null);
-CardsService = __decorate([
+exports.CardsService = CardsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [])
 ], CardsService);
-exports.CardsService = CardsService;
 //# sourceMappingURL=cards.service.js.map

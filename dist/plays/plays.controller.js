@@ -65,6 +65,7 @@ let PlaysController = class PlaysController {
         return this.playsService.twelveMonthProfitForAgentBranches(agentId);
     }
 };
+exports.PlaysController = PlaysController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -173,9 +174,8 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PlaysController.prototype, "twelveMonthProfitsForAgentBranches", null);
-PlaysController = __decorate([
+exports.PlaysController = PlaysController = __decorate([
     (0, common_1.Controller)('plays'),
     __metadata("design:paramtypes", [plays_service_1.PlaysService])
 ], PlaysController);
-exports.PlaysController = PlaysController;
 //# sourceMappingURL=plays.controller.js.map

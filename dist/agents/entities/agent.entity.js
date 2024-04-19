@@ -15,6 +15,7 @@ const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 let Agent = class Agent {
 };
+exports.Agent = Agent;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -33,8 +34,7 @@ __decorate([
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], Agent.prototype, "branches", void 0);
-Agent = __decorate([
+exports.Agent = Agent = __decorate([
     (0, typeorm_1.Entity)()
 ], Agent);
-exports.Agent = Agent;
 //# sourceMappingURL=agent.entity.js.map

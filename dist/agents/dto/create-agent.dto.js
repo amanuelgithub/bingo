@@ -14,10 +14,10 @@ const class_validator_1 = require("class-validator");
 const create_user_dto_1 = require("../../users/dto/create-user.dto");
 class CreateAgentDto extends create_user_dto_1.CreateUserDto {
 }
+exports.CreateAgentDto = CreateAgentDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAgentDto.prototype, "branchId", void 0);
-exports.CreateAgentDto = CreateAgentDto;
 //# sourceMappingURL=create-agent.dto.js.map

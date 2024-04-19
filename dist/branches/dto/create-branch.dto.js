@@ -13,11 +13,11 @@ exports.CreateBranchDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateBranchDto {
 }
+exports.CreateBranchDto = CreateBranchDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(4),
     __metadata("design:type", String)
 ], CreateBranchDto.prototype, "name", void 0);
-exports.CreateBranchDto = CreateBranchDto;
 //# sourceMappingURL=create-branch.dto.js.map

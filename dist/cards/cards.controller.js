@@ -39,6 +39,7 @@ let CardsController = class CardsController {
         return this.cardsService.deleteCard(req.user, branchId, cardId);
     }
 };
+exports.CardsController = CardsController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -88,9 +89,8 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", void 0)
 ], CardsController.prototype, "deleteCard", null);
-CardsController = __decorate([
+exports.CardsController = CardsController = __decorate([
     (0, common_1.Controller)('cards'),
     __metadata("design:paramtypes", [cards_service_1.CardsService])
 ], CardsController);
-exports.CardsController = CardsController;
 //# sourceMappingURL=cards.controller.js.map

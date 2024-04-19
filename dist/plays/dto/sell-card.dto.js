@@ -13,6 +13,7 @@ exports.SellCardDto = void 0;
 const class_validator_1 = require("class-validator");
 class SellCardDto {
 }
+exports.SellCardDto = SellCardDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -38,5 +39,4 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], SellCardDto.prototype, "money", void 0);
-exports.SellCardDto = SellCardDto;
 //# sourceMappingURL=sell-card.dto.js.map

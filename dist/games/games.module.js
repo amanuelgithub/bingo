@@ -17,12 +17,12 @@ const game_gateway_1 = require("./gateways/game.gateway");
 const game_state_service_1 = require("./game-state.service");
 let GamesModule = class GamesModule {
 };
-GamesModule = __decorate([
+exports.GamesModule = GamesModule;
+exports.GamesModule = GamesModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([game_entity_1.Game]), casl_module_1.CaslModule],
         controllers: [games_controller_1.GamesController],
         providers: [games_service_1.GamesService, game_state_service_1.GameStateService, game_gateway_1.GameGateway],
     })
 ], GamesModule);
-exports.GamesModule = GamesModule;
 //# sourceMappingURL=games.module.js.map

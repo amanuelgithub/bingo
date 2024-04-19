@@ -99,10 +99,10 @@ let UsersService = class UsersService {
         return `This action removes a #${id} user`;
     }
 };
-UsersService = __decorate([
+exports.UsersService = UsersService;
+exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
-exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

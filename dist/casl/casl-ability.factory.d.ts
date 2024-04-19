@@ -15,6 +15,6 @@ export declare enum Action {
 type Subjects = InferSubjects<typeof User | typeof Branch | typeof Agent | typeof Cashier | typeof Game | typeof Play> | 'all';
 export type AppAbility = Ability<[Action, Subjects]>;
 export declare class CaslAbilityFactory {
-    createForUser(user: any): Ability<[Action, Subjects], import("@casl/ability").MongoQuery<import("@casl/ability/dist/types/types").AnyObject>>;
+    createForUser(user: any): Ability<[Action, Subjects], import("@casl/ability").MongoQuery>;
 }
 export {};

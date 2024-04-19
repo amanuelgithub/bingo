@@ -120,14 +120,14 @@ let GameStateService = class GameStateService {
         }
     }
 };
+exports.GameStateService = GameStateService;
 __decorate([
     (0, event_emitter_1.OnEvent)('game.created'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [game_created_event_1.GameCreatedEvent]),
     __metadata("design:returntype", void 0)
 ], GameStateService.prototype, "createGameJSONfile", null);
-GameStateService = __decorate([
+exports.GameStateService = GameStateService = __decorate([
     (0, common_1.Injectable)()
 ], GameStateService);
-exports.GameStateService = GameStateService;
 //# sourceMappingURL=game-state.service.js.map

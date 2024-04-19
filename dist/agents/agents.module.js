@@ -17,7 +17,8 @@ const user_entity_1 = require("../users/entities/user.entity");
 const casl_module_1 = require("../casl/casl.module");
 let AgentsModule = class AgentsModule {
 };
-AgentsModule = __decorate([
+exports.AgentsModule = AgentsModule;
+exports.AgentsModule = AgentsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forFeature([agent_entity_1.Agent, user_entity_1.User]),
@@ -29,5 +30,4 @@ AgentsModule = __decorate([
         exports: [agents_service_1.AgentsService],
     })
 ], AgentsModule);
-exports.AgentsModule = AgentsModule;
 //# sourceMappingURL=agents.module.js.map

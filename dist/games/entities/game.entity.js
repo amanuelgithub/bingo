@@ -18,9 +18,10 @@ var GameStateEnum;
     GameStateEnum["PAUSED"] = "PAUSED";
     GameStateEnum["PLAYING"] = "PLAYING";
     GameStateEnum["END"] = "END";
-})(GameStateEnum = exports.GameStateEnum || (exports.GameStateEnum = {}));
+})(GameStateEnum || (exports.GameStateEnum = GameStateEnum = {}));
 let Game = class Game {
 };
+exports.Game = Game;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -53,8 +54,7 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => play_entity_1.Play, (play) => play.game),
     __metadata("design:type", Array)
 ], Game.prototype, "plays", void 0);
-Game = __decorate([
+exports.Game = Game = __decorate([
     (0, typeorm_1.Entity)()
 ], Game);
-exports.Game = Game;
 //# sourceMappingURL=game.entity.js.map

@@ -38,6 +38,7 @@ let AgentsController = class AgentsController {
         return this.agentsService.addBranchToAgent(agentId, branchId);
     }
 };
+exports.AgentsController = AgentsController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
@@ -74,9 +75,8 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], AgentsController.prototype, "addBranchToAgent", null);
-AgentsController = __decorate([
+exports.AgentsController = AgentsController = __decorate([
     (0, common_1.Controller)('agents'),
     __metadata("design:paramtypes", [agents_service_1.AgentsService])
 ], AgentsController);
-exports.AgentsController = AgentsController;
 //# sourceMappingURL=agents.controller.js.map

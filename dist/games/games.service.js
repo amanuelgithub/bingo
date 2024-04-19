@@ -65,11 +65,11 @@ let GamesService = class GamesService {
         return await this.gamesRepository.save(game);
     }
 };
-GamesService = __decorate([
+exports.GamesService = GamesService;
+exports.GamesService = GamesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(game_entity_1.Game)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         event_emitter_1.EventEmitter2])
 ], GamesService);
-exports.GamesService = GamesService;
 //# sourceMappingURL=games.service.js.map

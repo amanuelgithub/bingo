@@ -22,7 +22,7 @@ var Action;
     Action["Read"] = "read";
     Action["Update"] = "update";
     Action["Delete"] = "delete";
-})(Action = exports.Action || (exports.Action = {}));
+})(Action || (exports.Action = Action = {}));
 let CaslAbilityFactory = class CaslAbilityFactory {
     createForUser(user) {
         const { can, cannot, build } = new ability_1.AbilityBuilder(ability_1.Ability);
@@ -59,8 +59,8 @@ let CaslAbilityFactory = class CaslAbilityFactory {
         });
     }
 };
-CaslAbilityFactory = __decorate([
+exports.CaslAbilityFactory = CaslAbilityFactory;
+exports.CaslAbilityFactory = CaslAbilityFactory = __decorate([
     (0, common_1.Injectable)()
 ], CaslAbilityFactory);
-exports.CaslAbilityFactory = CaslAbilityFactory;
 //# sourceMappingURL=casl-ability.factory.js.map

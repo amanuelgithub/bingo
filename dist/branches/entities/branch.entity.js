@@ -15,6 +15,7 @@ const cashier_entity_1 = require("../../cashiers/entities/cashier.entity");
 const typeorm_1 = require("typeorm");
 let Branch = class Branch {
 };
+exports.Branch = Branch;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -39,8 +40,7 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => cashier_entity_1.Cashier, (cashier) => cashier.branch),
     __metadata("design:type", Array)
 ], Branch.prototype, "cashiers", void 0);
-Branch = __decorate([
+exports.Branch = Branch = __decorate([
     (0, typeorm_1.Entity)()
 ], Branch);
-exports.Branch = Branch;
 //# sourceMappingURL=branch.entity.js.map

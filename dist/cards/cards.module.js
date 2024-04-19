@@ -12,12 +12,12 @@ const cards_service_1 = require("./cards.service");
 const cards_controller_1 = require("./cards.controller");
 let CardsModule = class CardsModule {
 };
-CardsModule = __decorate([
+exports.CardsModule = CardsModule;
+exports.CardsModule = CardsModule = __decorate([
     (0, common_1.Module)({
         providers: [cards_service_1.CardsService],
         exports: [cards_service_1.CardsService],
         controllers: [cards_controller_1.CardsController],
     })
 ], CardsModule);
-exports.CardsModule = CardsModule;
 //# sourceMappingURL=cards.module.js.map

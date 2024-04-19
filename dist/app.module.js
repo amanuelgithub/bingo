@@ -36,7 +36,8 @@ let AppModule = class AppModule {
         cardsService.createJSONFile();
     }
 };
-AppModule = __decorate([
+exports.AppModule = AppModule;
+exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
@@ -65,5 +66,4 @@ AppModule = __decorate([
     }),
     __metadata("design:paramtypes", [cards_service_1.CardsService])
 ], AppModule);
-exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

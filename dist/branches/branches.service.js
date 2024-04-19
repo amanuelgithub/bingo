@@ -61,11 +61,11 @@ let BranchesService = class BranchesService {
         return branches;
     }
 };
-BranchesService = __decorate([
+exports.BranchesService = BranchesService;
+exports.BranchesService = BranchesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(branch_entity_1.Branch)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         event_emitter_1.EventEmitter2])
 ], BranchesService);
-exports.BranchesService = BranchesService;
 //# sourceMappingURL=branches.service.js.map

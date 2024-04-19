@@ -314,12 +314,12 @@ let PlaysService = class PlaysService {
         return dataset;
     }
 };
-PlaysService = __decorate([
+exports.PlaysService = PlaysService;
+exports.PlaysService = PlaysService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(play_entity_1.Play)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         cards_service_1.CardsService,
         agents_service_1.AgentsService])
 ], PlaysService);
-exports.PlaysService = PlaysService;
 //# sourceMappingURL=plays.service.js.map

@@ -182,7 +182,8 @@ let CashiersService = class CashiersService {
         };
     }
 };
-CashiersService = __decorate([
+exports.CashiersService = CashiersService;
+exports.CashiersService = CashiersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(cashier_entity_1.Cashier)),
     __param(1, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
@@ -191,5 +192,4 @@ CashiersService = __decorate([
         branches_service_1.BranchesService,
         plays_service_1.PlaysService])
 ], CashiersService);
-exports.CashiersService = CashiersService;
 //# sourceMappingURL=cashiers.service.js.map

@@ -146,7 +146,8 @@ let AgentsService = class AgentsService {
         return agentBranches;
     }
 };
-AgentsService = __decorate([
+exports.AgentsService = AgentsService;
+exports.AgentsService = AgentsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(agent_entity_1.Agent)),
     __param(1, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
@@ -154,5 +155,4 @@ AgentsService = __decorate([
         typeorm_2.Repository,
         branches_service_1.BranchesService])
 ], AgentsService);
-exports.AgentsService = AgentsService;
 //# sourceMappingURL=agents.service.js.map

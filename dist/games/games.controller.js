@@ -49,6 +49,7 @@ let GamesController = class GamesController {
         }
     }
 };
+exports.GamesController = GamesController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
@@ -85,9 +86,8 @@ __decorate([
     __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", void 0)
 ], GamesController.prototype, "getSound", null);
-GamesController = __decorate([
+exports.GamesController = GamesController = __decorate([
     (0, common_1.Controller)('games'),
     __metadata("design:paramtypes", [games_service_1.GamesService])
 ], GamesController);
-exports.GamesController = GamesController;
 //# sourceMappingURL=games.controller.js.map

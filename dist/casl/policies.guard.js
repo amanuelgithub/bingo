@@ -32,10 +32,10 @@ let PoliciesGuard = class PoliciesGuard {
         return handler.handle(ability);
     }
 };
-PoliciesGuard = __decorate([
+exports.PoliciesGuard = PoliciesGuard;
+exports.PoliciesGuard = PoliciesGuard = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [core_1.Reflector,
         casl_ability_factory_1.CaslAbilityFactory])
 ], PoliciesGuard);
-exports.PoliciesGuard = PoliciesGuard;
 //# sourceMappingURL=policies.guard.js.map

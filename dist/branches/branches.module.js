@@ -15,7 +15,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const casl_module_1 = require("../casl/casl.module");
 let BranchesModule = class BranchesModule {
 };
-BranchesModule = __decorate([
+exports.BranchesModule = BranchesModule;
+exports.BranchesModule = BranchesModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([branch_entity_1.Branch]), casl_module_1.CaslModule],
         controllers: [branches_controller_1.BranchesController],
@@ -23,5 +24,4 @@ BranchesModule = __decorate([
         exports: [branches_service_1.BranchesService],
     })
 ], BranchesModule);
-exports.BranchesModule = BranchesModule;
 //# sourceMappingURL=branches.module.js.map

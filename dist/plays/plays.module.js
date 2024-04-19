@@ -17,7 +17,8 @@ const agents_module_1 = require("../agents/agents.module");
 const casl_module_1 = require("../casl/casl.module");
 let PlaysModule = class PlaysModule {
 };
-PlaysModule = __decorate([
+exports.PlaysModule = PlaysModule;
+exports.PlaysModule = PlaysModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forFeature([play_entity_1.Play]),
@@ -30,5 +31,4 @@ PlaysModule = __decorate([
         exports: [plays_service_1.PlaysService],
     })
 ], PlaysModule);
-exports.PlaysModule = PlaysModule;
 //# sourceMappingURL=plays.module.js.map

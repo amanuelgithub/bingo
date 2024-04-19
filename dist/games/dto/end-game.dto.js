@@ -13,10 +13,10 @@ exports.EndGameDto = void 0;
 const class_validator_1 = require("class-validator");
 class EndGameDto {
 }
+exports.EndGameDto = EndGameDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], EndGameDto.prototype, "gameId", void 0);
-exports.EndGameDto = EndGameDto;
 //# sourceMappingURL=end-game.dto.js.map

@@ -54,6 +54,7 @@ let GameGateway = class GameGateway {
         client.emit('leftRoom', room);
     }
 };
+exports.GameGateway = GameGateway;
 __decorate([
     (0, websockets_1.WebSocketServer)(),
     __metadata("design:type", socket_io_1.Server)
@@ -70,12 +71,11 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, String]),
     __metadata("design:returntype", void 0)
 ], GameGateway.prototype, "handleLeaveJoin", null);
-GameGateway = __decorate([
+exports.GameGateway = GameGateway = __decorate([
     (0, websockets_1.WebSocketGateway)(8001, {
         cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
     }),
     __metadata("design:paramtypes", [game_state_service_1.GameStateService,
         games_service_1.GamesService])
 ], GameGateway);
-exports.GameGateway = GameGateway;
 //# sourceMappingURL=game.gateway.js.map

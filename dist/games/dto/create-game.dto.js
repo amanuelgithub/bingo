@@ -13,6 +13,7 @@ exports.CreateGameDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateGameDto {
 }
+exports.CreateGameDto = CreateGameDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -28,5 +29,4 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateGameDto.prototype, "money", void 0);
-exports.CreateGameDto = CreateGameDto;
 //# sourceMappingURL=create-game.dto.js.map

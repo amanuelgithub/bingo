@@ -44,6 +44,7 @@ let CashiersController = class CashiersController {
         return this.cashiersService.clearCashierCashBook(cashierId);
     }
 };
+exports.CashiersController = CashiersController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
@@ -98,9 +99,8 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CashiersController.prototype, "clearCashierCashBook", null);
-CashiersController = __decorate([
+exports.CashiersController = CashiersController = __decorate([
     (0, common_1.Controller)('cashiers'),
     __metadata("design:paramtypes", [cashiers_service_1.CashiersService])
 ], CashiersController);
-exports.CashiersController = CashiersController;
 //# sourceMappingURL=cashiers.controller.js.map

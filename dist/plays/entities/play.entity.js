@@ -16,9 +16,10 @@ var CardStateEnum;
 (function (CardStateEnum) {
     CardStateEnum["NORMAL"] = "NORMAL";
     CardStateEnum["WIN"] = "WIN";
-})(CardStateEnum = exports.CardStateEnum || (exports.CardStateEnum = {}));
+})(CardStateEnum || (exports.CardStateEnum = CardStateEnum = {}));
 let Play = class Play {
 };
+exports.Play = Play;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -55,8 +56,7 @@ __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Play.prototype, "createdAt", void 0);
-Play = __decorate([
+exports.Play = Play = __decorate([
     (0, typeorm_1.Entity)()
 ], Play);
-exports.Play = Play;
 //# sourceMappingURL=play.entity.js.map

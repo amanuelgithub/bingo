@@ -24,6 +24,7 @@ let AuthController = class AuthController {
         return this.authService.login(req.user);
     }
 };
+exports.AuthController = AuthController;
 __decorate([
     (0, common_1.UseGuards)(local_guard_1.LocalAuthGuard),
     (0, common_1.Post)('signin'),
@@ -32,9 +33,8 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signin", null);
-AuthController = __decorate([
+exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
-exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

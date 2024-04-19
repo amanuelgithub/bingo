@@ -18,14 +18,15 @@ var UserRoleEnum;
     UserRoleEnum["SUPER_ADMIN"] = "SUPER_ADMIN";
     UserRoleEnum["AGENT"] = "AGENT";
     UserRoleEnum["CASHIER"] = "CASHIER";
-})(UserRoleEnum = exports.UserRoleEnum || (exports.UserRoleEnum = {}));
+})(UserRoleEnum || (exports.UserRoleEnum = UserRoleEnum = {}));
 var UserStatusEnum;
 (function (UserStatusEnum) {
     UserStatusEnum["ACTIVE"] = "ACTIVE";
     UserStatusEnum["INACTIVE"] = "INACTIVE";
-})(UserStatusEnum = exports.UserStatusEnum || (exports.UserStatusEnum = {}));
+})(UserStatusEnum || (exports.UserStatusEnum = UserStatusEnum = {}));
 let User = class User {
 };
+exports.User = User;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
@@ -74,8 +75,7 @@ __decorate([
     (0, typeorm_1.OneToOne)(() => cashier_entity_1.Cashier, (cashier) => cashier.user, { onDelete: 'CASCADE' }),
     __metadata("design:type", cashier_entity_1.Cashier)
 ], User.prototype, "cashier", void 0);
-User = __decorate([
+exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
-exports.User = User;
 //# sourceMappingURL=user.entity.js.map
