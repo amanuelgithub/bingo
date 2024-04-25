@@ -20,7 +20,8 @@ interface IGameSocketMessage {
 }
 
 @WebSocketGateway(8001, {
-  cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
+  cors: { origin: 'http://157.230.49.88:8080', methods: ['GET', 'POST'] },
+  // cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
 })
 export class GameGateway {
   @WebSocketServer()
@@ -62,11 +63,13 @@ export class GameGateway {
 
       let soundUrl = '';
       if (message.soundLang === 'am') {
-        soundUrl = `http://localhost:3001/api/games/balls-audio/am/${
+        soundUrl = `http://157.230.49.88:5000/api/games/balls-audio/am/${
+          // soundUrl = `http://localhost:3001/api/games/balls-audio/am/${
           message.gameData.playingNumbers[message.gameData.currentIndex]
         }amh.m4a`;
       } else if (message.soundLang === 'or') {
-        soundUrl = `http://localhost:3001/api/games/balls-audio/or/${
+        soundUrl = `http://157.230.49.88:5000/api/games/balls-audio/or/${
+          // soundUrl = `http://localhost:3001/api/games/balls-audio/or/${
           message.gameData.playingNumbers[message.gameData.currentIndex]
         }or.m4a`;
       }
