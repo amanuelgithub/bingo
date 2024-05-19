@@ -59,6 +59,7 @@ export class CaslAbilityFactory {
 
       // // Branch
       can(Action.Read, Branch);
+      can(Action.Update, Branch);
 
       // // Cashier
       can(Action.Create, Cashier);

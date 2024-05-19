@@ -44,13 +44,21 @@ import { Play } from './plays/entities/play.entity';
     // }),
 
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      // type: 'postgres',
+      // host: 'localhost',
+      // port: 5432,
+
+      // database: 'bingo',
+      // username: 'postgres',
+      // password: 'postgres',
+
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
+      port: 3306,
 
       database: 'bingo',
-      username: 'postgres',
-      password: 'postgres',
+      username: 'root',
+      password: 'Cipher@man1!',
 
       // 0000000000000000000
       // type: 'mysql',

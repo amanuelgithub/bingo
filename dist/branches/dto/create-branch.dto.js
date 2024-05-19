@@ -9,7 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateBranchDto = void 0;
+exports.UpdateBranchDto = exports.CreateBranchDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateBranchDto {
 }
@@ -20,4 +21,14 @@ __decorate([
     (0, class_validator_1.MinLength)(4),
     __metadata("design:type", String)
 ], CreateBranchDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.Min)(10),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], CreateBranchDto.prototype, "houseEdge", void 0);
+class UpdateBranchDto extends (0, swagger_1.PartialType)(CreateBranchDto) {
+}
+exports.UpdateBranchDto = UpdateBranchDto;
 //# sourceMappingURL=create-branch.dto.js.map

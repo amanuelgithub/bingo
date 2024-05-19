@@ -25,6 +25,10 @@ __decorate([
     __metadata("design:type", String)
 ], Branch.prototype, "name", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: false, default: 10 }),
+    __metadata("design:type", Number)
+], Branch.prototype, "houseEdge", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Branch.prototype, "createdAt", void 0);

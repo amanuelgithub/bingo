@@ -11,6 +11,7 @@ interface IBranch {
 export declare class Branch implements IBranch {
     id: string;
     name: string;
+    houseEdge: number;
     createdAt: Date;
     modifiedAt: Date;
     agents: Agent[];

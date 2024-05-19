@@ -31,6 +31,12 @@ let BranchesController = class BranchesController {
     findAgentBranches(agentId, req) {
         return this.branchesService.findAgentBranches(agentId);
     }
+    findOne(branchId) {
+        return this.branchesService.findOne(branchId);
+    }
+    updateBranch(branchId, updateBranchDto) {
+        return this.branchesService.updateBranch(branchId, updateBranchDto);
+    }
     findAll(req) {
         return this.branchesService.findAll();
     }
@@ -55,6 +61,25 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], BranchesController.prototype, "findAgentBranches", null);
+__decorate([
+    (0, common_1.Get)('get/:branchId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
+    (0, check_policy_decorator_1.CheckPolicies)((ability) => ability.can(casl_ability_factory_1.Action.Read, branch_entity_1.Branch)),
+    __param(0, (0, common_1.Param)('branchId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], BranchesController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)('update/:branchId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
+    (0, check_policy_decorator_1.CheckPolicies)((ability) => ability.can(casl_ability_factory_1.Action.Update, branch_entity_1.Branch)),
+    __param(0, (0, common_1.Param)('branchId')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_branch_dto_1.UpdateBranchDto]),
+    __metadata("design:returntype", void 0)
+], BranchesController.prototype, "updateBranch", null);
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),

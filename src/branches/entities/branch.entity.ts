@@ -31,6 +31,10 @@ export class Branch implements IBranch {
   @Column({ unique: true })
   name: string;
 
+  // house edge configuration
+  @Column({ nullable: false, default: 10 })
+  houseEdge: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -60,6 +60,14 @@ let BranchesService = class BranchesService {
         }
         return branches;
     }
+    async updateBranch(id, updateBranchDto) {
+        const branch = await this.branchesRepository.findOne({ where: { id } });
+        if (!branch) {
+            throw new common_1.NotFoundException('branch not found!');
+        }
+        await this.branchesRepository.update(id, updateBranchDto);
+        return await this.branchesRepository.findOne({ where: { id } });
+    }
 };
 exports.BranchesService = BranchesService;
 exports.BranchesService = BranchesService = __decorate([

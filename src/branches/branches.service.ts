@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateBranchDto } from './dto/create-branch.dto';
+import { CreateBranchDto, UpdateBranchDto } from './dto/create-branch.dto';
 import { Branch } from './entities/branch.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -59,5 +59,17 @@ export class BranchesService {
       throw new NotFoundException('branches not found!');
     }
     return branches;
+  }
+
+  async updateBranch(
+    id: string,
+    updateBranchDto: UpdateBranchDto,
+  ): Promise<Branch> {
+    const branch = await this.branchesRepository.findOne({ where: { id } });
+    if (!branch) {
+      throw new NotFoundException('branch not found!');
+    }
+    await this.branchesRepository.update(id, updateBranchDto);
+    return await this.branchesRepository.findOne({ where: { id } });
   }
 }

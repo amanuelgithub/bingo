@@ -38,6 +38,7 @@ let CaslAbilityFactory = class CaslAbilityFactory {
             can(Action.Delete, agent_entity_1.Agent);
             can(Action.Read, play_entity_1.Play);
             can(Action.Read, branch_entity_1.Branch);
+            can(Action.Update, branch_entity_1.Branch);
             can(Action.Create, cashier_entity_1.Cashier);
             can(Action.Manage, cashier_entity_1.Cashier);
             can(Action.Read, cashier_entity_1.Cashier);

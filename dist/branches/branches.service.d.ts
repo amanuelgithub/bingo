@@ -1,4 +1,4 @@
-import { CreateBranchDto } from './dto/create-branch.dto';
+import { CreateBranchDto, UpdateBranchDto } from './dto/create-branch.dto';
 import { Branch } from './entities/branch.entity';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -10,4 +10,5 @@ export declare class BranchesService {
     findAll(): Promise<Branch[]>;
     findOne(id: string): Promise<Branch>;
     findAgentBranches(agentId: string): Promise<Branch[]>;
+    updateBranch(id: string, updateBranchDto: UpdateBranchDto): Promise<Branch>;
 }

@@ -6,9 +6,10 @@ import {
   UseGuards,
   Req,
   Param,
+  Put,
 } from '@nestjs/common';
 import { BranchesService } from './branches.service';
-import { CreateBranchDto } from './dto/create-branch.dto';
+import { CreateBranchDto, UpdateBranchDto } from './dto/create-branch.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/policies.guard';
 import { CheckPolicies } from '../casl/check-policy.decorator';
@@ -31,6 +32,24 @@ export class BranchesController {
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Branch))
   findAgentBranches(@Param('agentId') agentId: string, @Req() req) {
     return this.branchesService.findAgentBranches(agentId);
+  }
+
+  @Get('get/:branchId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Branch))
+  findOne(@Param('branchId') branchId: string) {
+    return this.branchesService.findOne(branchId);
+  }
+
+  // update the branch
+  @Put('update/:branchId')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Update, Branch))
+  updateBranch(
+    @Param('branchId') branchId: string,
+    @Body() updateBranchDto: UpdateBranchDto,
+  ) {
+    return this.branchesService.updateBranch(branchId, updateBranchDto);
   }
 
   @Get()
