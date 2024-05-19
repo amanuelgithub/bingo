@@ -41,13 +41,13 @@ export class CaslAbilityFactory {
       Ability<[Action, Subjects]>
     >(Ability as AbilityClass<AppAbility>);
 
-    console.log('user: ', user);
+    // console.log('user: ', user);
 
     if (user?.role === UserRoleEnum.SUPER_ADMIN) {
       // gives full-right over-all subjects
       can(Action.Manage, 'all');
     } else if (user.role === UserRoleEnum.AGENT) {
-      console.log('user role: ', user.role);
+      // console.log('user role: ', user.role);
       // Agent
       can(Action.Create, Agent);
       can(Action.Manage, Agent);
@@ -73,6 +73,7 @@ export class CaslAbilityFactory {
       can(Action.Read, Game);
       can(Action.Update, Game);
 
+      can(Action.Read, Branch);
       // // Play
       can(Action.Create, Play);
       can(Action.Manage, Play);

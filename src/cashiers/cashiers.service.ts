@@ -169,7 +169,10 @@ export class CashiersService {
     return cashier;
   }
 
-  async findCashierCashBook(cashierId: string): Promise<CashBook> {
+  async findCashierCashBook(
+    cashierId: string,
+    branchId: string,
+  ): Promise<CashBook> {
     // lastCheckout date
     // due cash) -> amt of money since lastCheckout Date
     const cashier = await this.cashiersRepository.findOne({
@@ -183,6 +186,7 @@ export class CashiersService {
     // new Date('2023-07-02 16:38:13.186728');
     const dueCash = await this.playsService.findDueCashForCashier(
       cashierId,
+      branchId,
       cashier.lastCheckout,
       // new Date('2023-07-02 16:40:22.078369'),
     );
@@ -193,7 +197,10 @@ export class CashiersService {
     };
   }
 
-  async clearCashierCashBook(cashierId: string): Promise<CashBook> {
+  async clearCashierCashBook(
+    cashierId: string,
+    branchId: string,
+  ): Promise<CashBook> {
     const cashier = await this.cashiersRepository.findOne({
       where: { id: cashierId },
     });
@@ -209,6 +216,7 @@ export class CashiersService {
     // find all money since the last checkout date from the 'play' table
     const dueCash = await this.playsService.findDueCashForCashier(
       cashierId,
+      branchId,
       cashier.lastCheckout,
     );
 

@@ -15,6 +15,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const play_entity_1 = require("./entities/play.entity");
 const agents_module_1 = require("../agents/agents.module");
 const casl_module_1 = require("../casl/casl.module");
+const branches_module_1 = require("../branches/branches.module");
 let PlaysModule = class PlaysModule {
 };
 exports.PlaysModule = PlaysModule;
@@ -25,6 +26,7 @@ exports.PlaysModule = PlaysModule = __decorate([
             casl_module_1.CaslModule,
             cards_module_1.CardsModule,
             agents_module_1.AgentsModule,
+            branches_module_1.BranchesModule,
         ],
         controllers: [plays_controller_1.PlaysController],
         providers: [plays_service_1.PlaysService],

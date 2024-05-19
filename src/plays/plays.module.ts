@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Play } from './entities/play.entity';
 import { AgentsModule } from 'src/agents/agents.module';
 import { CaslModule } from 'src/casl/casl.module';
+import { BranchesModule } from 'src/branches/branches.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CaslModule } from 'src/casl/casl.module';
     CaslModule,
     CardsModule,
     AgentsModule,
+    BranchesModule,
   ],
   controllers: [PlaysController],
   providers: [PlaysService],

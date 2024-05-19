@@ -47,17 +47,23 @@ export class CashiersController {
     return this.cashiersService.findAgentCashiers(agentId);
   }
 
-  @Get('/cash-book/:cashierId')
+  @Get('/cash-book/:cashierId/:branchId')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
-  findCashierCashBook(@Param('cashierId') cashierId: string) {
-    return this.cashiersService.findCashierCashBook(cashierId);
+  findCashierCashBook(
+    @Param('cashierId') cashierId: string,
+    @Param('branchId') branchId: string,
+  ) {
+    return this.cashiersService.findCashierCashBook(cashierId, branchId);
   }
 
-  @Patch('/clear-cash-book/:cashierId')
+  @Patch('/clear-cash-book/:cashierId/:branchId')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Cashier))
-  clearCashierCashBook(@Param('cashierId') cashierId: string) {
-    return this.cashiersService.clearCashierCashBook(cashierId);
+  clearCashierCashBook(
+    @Param('cashierId') cashierId: string,
+    @Param('branchId') branchId: string,
+  ) {
+    return this.cashiersService.clearCashierCashBook(cashierId, branchId);
   }
 }

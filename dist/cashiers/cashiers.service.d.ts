@@ -15,6 +15,6 @@ export declare class CashiersService {
     findBranchCashiers(branchId: string): Promise<Cashier[]>;
     findAgentCashiers(agentId: string): Promise<Cashier[]>;
     findOne(id: string): Promise<Cashier>;
-    findCashierCashBook(cashierId: string): Promise<CashBook>;
-    clearCashierCashBook(cashierId: string): Promise<CashBook>;
+    findCashierCashBook(cashierId: string, branchId: string): Promise<CashBook>;
+    clearCashierCashBook(cashierId: string, branchId: string): Promise<CashBook>;
 }

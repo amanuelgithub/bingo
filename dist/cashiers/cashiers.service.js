@@ -153,20 +153,20 @@ let CashiersService = class CashiersService {
         }
         return cashier;
     }
-    async findCashierCashBook(cashierId) {
+    async findCashierCashBook(cashierId, branchId) {
         const cashier = await this.cashiersRepository.findOne({
             where: { id: cashierId },
         });
         if (!cashier) {
             throw new common_1.NotFoundException('Cashier not found!');
         }
-        const dueCash = await this.playsService.findDueCashForCashier(cashierId, cashier.lastCheckout);
+        const dueCash = await this.playsService.findDueCashForCashier(cashierId, branchId, cashier.lastCheckout);
         return {
             lastCheckOutDate: cashier.lastCheckout,
             dueCash,
         };
     }
-    async clearCashierCashBook(cashierId) {
+    async clearCashierCashBook(cashierId, branchId) {
         const cashier = await this.cashiersRepository.findOne({
             where: { id: cashierId },
         });
@@ -175,7 +175,7 @@ let CashiersService = class CashiersService {
         }
         cashier.lastCheckout = new Date();
         await this.cashiersRepository.save(cashier);
-        const dueCash = await this.playsService.findDueCashForCashier(cashierId, cashier.lastCheckout);
+        const dueCash = await this.playsService.findDueCashForCashier(cashierId, branchId, cashier.lastCheckout);
         return {
             lastCheckOutDate: cashier.lastCheckout,
             dueCash,

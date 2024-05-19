@@ -37,11 +37,11 @@ let CashiersController = class CashiersController {
     findAgentCashiers(agentId) {
         return this.cashiersService.findAgentCashiers(agentId);
     }
-    findCashierCashBook(cashierId) {
-        return this.cashiersService.findCashierCashBook(cashierId);
+    findCashierCashBook(cashierId, branchId) {
+        return this.cashiersService.findCashierCashBook(cashierId, branchId);
     }
-    clearCashierCashBook(cashierId) {
-        return this.cashiersService.clearCashierCashBook(cashierId);
+    clearCashierCashBook(cashierId, branchId) {
+        return this.cashiersService.clearCashierCashBook(cashierId, branchId);
     }
 };
 exports.CashiersController = CashiersController;
@@ -82,21 +82,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CashiersController.prototype, "findAgentCashiers", null);
 __decorate([
-    (0, common_1.Get)('/cash-book/:cashierId'),
+    (0, common_1.Get)('/cash-book/:cashierId/:branchId'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
     (0, check_policy_decorator_1.CheckPolicies)((ability) => ability.can(casl_ability_factory_1.Action.Read, cashier_entity_1.Cashier)),
     __param(0, (0, common_1.Param)('cashierId')),
+    __param(1, (0, common_1.Param)('branchId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CashiersController.prototype, "findCashierCashBook", null);
 __decorate([
-    (0, common_1.Patch)('/clear-cash-book/:cashierId'),
+    (0, common_1.Patch)('/clear-cash-book/:cashierId/:branchId'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, policies_guard_1.PoliciesGuard),
     (0, check_policy_decorator_1.CheckPolicies)((ability) => ability.can(casl_ability_factory_1.Action.Read, cashier_entity_1.Cashier)),
     __param(0, (0, common_1.Param)('cashierId')),
+    __param(1, (0, common_1.Param)('branchId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CashiersController.prototype, "clearCashierCashBook", null);
 exports.CashiersController = CashiersController = __decorate([

@@ -134,17 +134,6 @@ let AgentsService = class AgentsService {
         await this.agentsRepository.save(agent);
         return agent;
     }
-    async findAgentBranches(agentId) {
-        const agentBranches = await this.agentsRepository
-            .createQueryBuilder('agent')
-            .where('agent.id = :agentId', { agentId })
-            .leftJoinAndSelect('agent.branches', 'branches')
-            .getOne();
-        if (!agentBranches) {
-            throw new common_1.NotFoundException('agent not found!');
-        }
-        return agentBranches;
-    }
 };
 exports.AgentsService = AgentsService;
 exports.AgentsService = AgentsService = __decorate([

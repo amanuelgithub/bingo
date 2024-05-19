@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateAgentDto } from './dto/create-agent.dto';
@@ -10,6 +11,7 @@ import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { BranchesService } from '../branches/branches.service';
+import { Branch } from 'src/branches/entities/branch.entity';
 
 @Injectable()
 export class AgentsService {
@@ -151,17 +153,29 @@ export class AgentsService {
   }
 
   // find agent branches
-  async findAgentBranches(agentId: string) {
-    const agentBranches = await this.agentsRepository
-      .createQueryBuilder('agent')
-      .where('agent.id = :agentId', { agentId })
-      .leftJoinAndSelect('agent.branches', 'branches')
-      .getOne();
+  // async findAgentBranches(agentId: string) {
+  //   const agentBranches = await this.agentsRepository
+  //     .createQueryBuilder('agent')
+  //     .where('agent.id = :agentId', { agentId })
+  //     .leftJoinAndSelect('agent.branches', 'branches')
+  //     .getOne();
 
-    if (!agentBranches) {
-      throw new NotFoundException('agent not found!');
-    }
+  //   // Logger.log('agentBranches: ', JSON.stringify(agentBranches));
 
-    return agentBranches;
-  }
+  //   if (!agentBranches) {
+  //     throw new NotFoundException('agent not found!');
+  //   }
+
+  //   return agentBranches;
+  // }
+
+  // async findAllAgentBranches(agentId: string): Promise<Branch[]> {
+  //   const branches = await this.branchesService.findAgentBranches(agentId);
+
+  //   if (!branches) {
+  //     throw new NotFoundException('branches not found!');
+  //   }
+
+  //   return branches;
+  // }
 }

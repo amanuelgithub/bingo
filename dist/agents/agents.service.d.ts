@@ -12,5 +12,4 @@ export declare class AgentsService {
     findAll(): Promise<Agent[]>;
     findOne(id: string): Promise<Agent>;
     addBranchToAgent(agentId: string, branchId: string): Promise<Agent>;
-    findAgentBranches(agentId: string): Promise<Agent>;
 }

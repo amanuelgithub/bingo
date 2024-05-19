@@ -8,6 +8,6 @@ export declare class CashiersController {
     findOne(id: string): Promise<Cashier>;
     findBranchCashiers(branchId: string): Promise<Cashier[]>;
     findAgentCashiers(agentId: string): Promise<Cashier[]>;
-    findCashierCashBook(cashierId: string): Promise<import("./cash-book.interface").CashBook>;
-    clearCashierCashBook(cashierId: string): Promise<import("./cash-book.interface").CashBook>;
+    findCashierCashBook(cashierId: string, branchId: string): Promise<import("./cash-book.interface").CashBook>;
+    clearCashierCashBook(cashierId: string, branchId: string): Promise<import("./cash-book.interface").CashBook>;
 }

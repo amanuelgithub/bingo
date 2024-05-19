@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { SellCardDto } from './dto/sell-card.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CardStateEnum, Play } from './entities/play.entity';
@@ -13,6 +13,7 @@ import {
   endOfYear,
 } from 'date-fns';
 import { AgentsService } from 'src/agents/agents.service';
+import { BranchesService } from 'src/branches/branches.service';
 
 @Injectable()
 export class PlaysService {
@@ -20,6 +21,7 @@ export class PlaysService {
     @InjectRepository(Play) private playsRepository: Repository<Play>,
     private cardsService: CardsService,
     private agentsService: AgentsService,
+    private branchesService: BranchesService,
   ) {}
 
   // find unsold cards
@@ -54,7 +56,8 @@ export class PlaysService {
   }
 
   async sellCard(sellCardDto: SellCardDto) {
-    const { gameId, cardId, branchId, cashierId, money } = sellCardDto;
+    Logger.log('sellCard: ', JSON.stringify(sellCardDto));
+    const { gameId, cardId } = sellCardDto;
     // check if card is sold for a specific cashier
     const card = await this.playsRepository
       .createQueryBuilder('play')
@@ -68,14 +71,25 @@ export class PlaysService {
 
     const sellCard = this.playsRepository.create({
       ...sellCardDto,
+      branchId: sellCardDto.branchId,
+      cashierId: sellCardDto.cashierId,
+      money: sellCardDto.money,
+      gameId: sellCardDto.gameId,
       cardState: CardStateEnum.NORMAL,
     });
     return await this.playsRepository.save(sellCard);
   }
 
   // cashiers queries
-  async findDueCashForCashier(cashierId: string, lastCheckoutDate: Date) {
+  async findDueCashForCashier(
+    cashierId: string,
+    branchId: string,
+    lastCheckoutDate: Date,
+  ) {
     let totalSaleSinceLastCheckout = 0;
+
+    // find branch
+    const branch = await this.branchesService.findOne(branchId);
 
     await this.playsRepository
       .createQueryBuilder('play')
@@ -91,7 +105,7 @@ export class PlaysService {
         });
       });
 
-    const dueCash = totalSaleSinceLastCheckout * 0.2;
+    const dueCash = totalSaleSinceLastCheckout * (branch.houseEdge / 100);
     return parseInt(dueCash.toFixed(2));
   }
 
@@ -115,7 +129,9 @@ export class PlaysService {
         });
       });
 
-    return parseInt((todayProfits * 0.2).toFixed(2));
+    // todo: this is incorrect implementation
+    return parseInt((todayProfits * 0.1).toFixed(2));
+    // return parseInt((todayProfits * (branch.houseEdge / 100)).toFixed(2));
   }
 
   // find this month's profits in all branches
@@ -138,7 +154,9 @@ export class PlaysService {
         });
       });
 
-    return (thisMonthProfits * 0.2).toFixed(2);
+    // todo: this is incorrect implementation
+    return (thisMonthProfits * 0.1).toFixed(2);
+    // return (thisMonthProfits * (branch.houseEdge / 100)).toFixed(2);
   }
 
   async thisYearProfitForAllBranches() {
@@ -160,7 +178,9 @@ export class PlaysService {
         });
       });
 
-    return (thisYearProfit * 0.2).toFixed(2);
+    // todo: this is incorrect implementation
+    return (thisYearProfit * 0.1).toFixed(2);
+    // return (thisYearProfit * (branch.houseEdge / 100)).toFixed(2);
   }
 
   async totalProfitForAllBranches() {
@@ -176,7 +196,9 @@ export class PlaysService {
         });
       });
 
-    return (totalProfit * 0.2).toFixed(2);
+    // todo: this is incorrect implementation
+    return (totalProfit * 0.1).toFixed(2);
+    // return (totalProfit * (branch.houseEdge / 100)).toFixed(2);
   }
 
   async twelveMonthProfitForAllBranches() {
@@ -216,7 +238,8 @@ export class PlaysService {
           });
         });
 
-      thisMonthProfits = thisMonthProfits * 0.2;
+      thisMonthProfits = thisMonthProfits * 0.1;
+      // thisMonthProfits = thisMonthProfits * (branch.houseEdge / 100);
 
       dataset[i].profit = parseInt(thisMonthProfits.toFixed(2));
     }
@@ -230,7 +253,7 @@ export class PlaysService {
   async todayProfitForAgentBranches(agentId: string) {
     let todayProfits = 0;
 
-    const agentBranches = await this.agentsService.findAgentBranches(agentId);
+    const branches = await this.branchesService.findAgentBranches(agentId);
 
     await this.playsRepository
       .createQueryBuilder('play')
@@ -239,27 +262,29 @@ export class PlaysService {
       })
       .andWhere('play.createdAt <= :endOfToday', { endOfToday: endOfToday() })
       .andWhere('play.branchId IN (:branchIds)', {
-        branchIds: agentBranches.branches.map((b) => b.id),
+        branchIds: branches.map((b) => b.id),
       })
-      .select('play.money')
+      .select(['play.money', 'play.branchId', 'play.createdAt', 'play.id'])
       .getMany()
       .then((plays) => {
         plays.map((play) => {
-          console.log('play: ', play);
-          todayProfits += play.money;
+          const branch = branches.find((b) => b.id === play.branchId);
+          if (branch) {
+            todayProfits += play.money * (branch.houseEdge / 100);
+          }
         });
       });
 
-    console.log('todayProfitsForAgentBranches: ', todayProfits * 0.2);
+    console.log('todayProfitsForAgentBranches: ', todayProfits);
 
-    return parseInt((todayProfits * 0.2).toFixed(2));
+    return parseInt(todayProfits.toFixed(2));
   }
 
   // find this month's profits in all branches for agent
   async thisMonthProfitsForAgentBranches(agentId: string) {
     let thisMonthProfits = 0;
 
-    const agentBranches = await this.agentsService.findAgentBranches(agentId);
+    const branches = await this.branchesService.findAgentBranches(agentId);
 
     await this.playsRepository
       .createQueryBuilder('play')
@@ -270,43 +295,49 @@ export class PlaysService {
         endOfMonth: endOfMonth(new Date()),
       })
       .andWhere('play.branchId IN (:branchIds)', {
-        branchIds: agentBranches.branches.map((b) => b.id),
+        branchIds: branches.map((b) => b.id),
       })
-      .select('play.money')
+      .select(['play.money', 'play.branchId', 'play.createdAt', 'play.id'])
       .getMany()
       .then((plays) => {
         plays.map((play) => {
-          thisMonthProfits += play.money;
+          const branch = branches.find((b) => b.id === play.branchId);
+          if (branch) {
+            thisMonthProfits += play.money * (branch.houseEdge / 100);
+          }
         });
       });
 
-    return parseInt((thisMonthProfits * 0.2).toFixed(2));
+    return parseInt(thisMonthProfits.toFixed(2));
   }
 
   // find total profit in all branches for agent
   async totalProfitsForAgentBranches(agentId: string) {
     let totalProfits = 0;
 
-    const agentBranches = await this.agentsService.findAgentBranches(agentId);
+    const branches = await this.branchesService.findAgentBranches(agentId);
 
     await this.playsRepository
       .createQueryBuilder('play')
       .andWhere('play.branchId IN (:branchIds)', {
-        branchIds: agentBranches.branches.map((b) => b.id),
+        branchIds: branches.map((b) => b.id),
       })
-      .select('play.money')
+      .select(['play.money', 'play.branchId', 'play.createdAt', 'play.id'])
       .getMany()
       .then((plays) => {
         plays.map((play) => {
-          totalProfits += play.money;
+          const branch = branches.find((b) => b.id === play.branchId);
+          if (branch) {
+            totalProfits += play.money * (branch.houseEdge / 100);
+          }
         });
       });
 
-    return parseInt((totalProfits * 0.2).toFixed(2));
+    return parseInt(totalProfits.toFixed(2));
   }
 
   async thisYearProfitForAgentBranches(agentId: string) {
-    const agentBranches = await this.agentsService.findAgentBranches(agentId);
+    const branches = await this.branchesService.findAgentBranches(agentId);
 
     let thisYearProfit = 0;
 
@@ -319,22 +350,25 @@ export class PlaysService {
         endOfYear: endOfYear(new Date()),
       })
       .andWhere('play.branchId IN (:branchIds)', {
-        branchIds: agentBranches.branches.map((b) => b.id),
+        branchIds: branches.map((b) => b.id),
       })
-      .select('play.money')
+      .select(['play.money', 'play.branchId', 'play.createdAt', 'play.id'])
       .getMany()
       .then((plays) => {
         plays.map((play) => {
-          thisYearProfit += play.money;
+          const branch = branches.find((b) => b.id === play.branchId);
+          if (branch) {
+            thisYearProfit += play.money * (branch.houseEdge / 100);
+          }
         });
       });
 
-    return parseInt((thisYearProfit * 0.2).toFixed(2));
+    return parseInt(thisYearProfit.toFixed(2));
   }
 
   // find all the twelve month profits for all branches of an agent
   async twelveMonthProfitForAgentBranches(agentId: string) {
-    const agentBranches = await this.agentsService.findAgentBranches(agentId);
+    const branches = await this.branchesService.findAgentBranches(agentId);
 
     const dataset = [
       { month: 'January', profit: 0 },
@@ -365,17 +399,20 @@ export class PlaysService {
           endOfMonth: endOfMonth(new Date(year, i)),
         })
         .andWhere('play.branchId IN (:branchIds)', {
-          branchIds: agentBranches.branches.map((b) => b.id),
+          branchIds: branches.map((b) => b.id),
         })
-        .select('play.money')
+        .select(['play.money', 'play.branchId', 'play.createdAt', 'play.id'])
         .getMany()
         .then((plays) => {
           plays.map((play) => {
-            thisMonthProfits += play.money;
+            const branch = branches.find((b) => b.id === play.branchId);
+            if (branch) {
+              thisMonthProfits += play.money * (branch.houseEdge / 100);
+            }
           });
         });
 
-      thisMonthProfits = thisMonthProfits * 0.2;
+      // thisMonthProfits = thisMonthProfits * 0.2;
 
       dataset[i].profit = parseInt(thisMonthProfits.toFixed(2));
     }

@@ -26,12 +26,10 @@ var Action;
 let CaslAbilityFactory = class CaslAbilityFactory {
     createForUser(user) {
         const { can, cannot, build } = new ability_1.AbilityBuilder(ability_1.Ability);
-        console.log('user: ', user);
         if ((user === null || user === void 0 ? void 0 : user.role) === user_entity_1.UserRoleEnum.SUPER_ADMIN) {
             can(Action.Manage, 'all');
         }
         else if (user.role === user_entity_1.UserRoleEnum.AGENT) {
-            console.log('user role: ', user.role);
             can(Action.Create, agent_entity_1.Agent);
             can(Action.Manage, agent_entity_1.Agent);
             can(Action.Read, agent_entity_1.Agent);
@@ -49,6 +47,7 @@ let CaslAbilityFactory = class CaslAbilityFactory {
             can(Action.Manage, game_entity_1.Game);
             can(Action.Read, game_entity_1.Game);
             can(Action.Update, game_entity_1.Game);
+            can(Action.Read, branch_entity_1.Branch);
             can(Action.Create, play_entity_1.Play);
             can(Action.Manage, play_entity_1.Play);
             can(Action.Read, play_entity_1.Play);
