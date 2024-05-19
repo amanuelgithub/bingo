@@ -44,37 +44,23 @@ import { Play } from './plays/entities/play.entity';
     // }),
 
     TypeOrmModule.forRoot({
-      // type: 'postgres',
-      // host: 'localhost',
-      // port: 5432,
-
-      // database: 'bingo',
-      // username: 'postgres',
-      // password: 'postgres',
-
-      type: 'mysql',
+      // remote server 157.230.49.88:5000
+      type: 'postgres',
       host: 'localhost',
-      port: 3306,
+      port: 5432,
 
       database: 'bingo',
-      username: 'root',
-      password: 'Cipher@man1!',
+      username: 'postgres',
+      password: 'postgres',
 
-      // 0000000000000000000
+      // local configs
       // type: 'mysql',
-      // host: '127.0.0.1',
+      // host: 'localhost',
       // port: 3306,
 
       // database: 'bingo',
-      // username: 'debian-sys-maint',
-      // password: 'IfdutZjFJDNcBf7J',
-
-      // password: 'IfdutZjFJDNcBf7J',
-      // password: 'password',
-
-      // database: 'amanuelgirmadev_bingo',
-      // username: 'amanuelgirmadev_amanuelgirmadev',
-      // password: 'L4hH8tO1lS0aA6d',
+      // username: 'root',
+      // password: 'Cipher@man1!',
 
       // ssl: {
       //   rejectUnauthorized: false,

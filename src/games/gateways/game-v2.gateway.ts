@@ -23,9 +23,9 @@ interface IGameSocketMessage {
 }
 
 @WebSocketGateway(8001, {
-  // host: '157.230.49.88',
-  // cors: { origin: 'http://157.230.49.88:8080', methods: ['GET', 'POST'] },
-  cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
+  host: '157.230.49.88',
+  cors: { origin: 'http://157.230.49.88:8080', methods: ['GET', 'POST'] },
+  // cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
 })
 export class GameV2Gateway {
   @WebSocketServer()
