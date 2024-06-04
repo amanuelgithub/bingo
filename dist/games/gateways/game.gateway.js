@@ -35,10 +35,10 @@ let GameGateway = class GameGateway {
             const updatedGameData = this.gameStateService.updateGameState(message.gameId, message.gameData);
             let soundUrl = '';
             if (message.soundLang === 'am') {
-                soundUrl = `http://localhost:3001/api/games/balls-audio/am/${message.gameData.playingNumbers[message.gameData.currentIndex]}amh.m4a`;
+                soundUrl = `http://157.230.49.88:5000/api/games/balls-audio/am/${message.gameData.playingNumbers[message.gameData.currentIndex]}amh.m4a`;
             }
             else if (message.soundLang === 'or') {
-                soundUrl = `http://localhost:3001/api/games/balls-audio/or/${message.gameData.playingNumbers[message.gameData.currentIndex]}or.m4a`;
+                soundUrl = `http://157.230.49.88:5000/api/games/balls-audio/or/${message.gameData.playingNumbers[message.gameData.currentIndex]}or.m4a`;
             }
             this.server.to(message.room).emit(message.room, {
                 room: message.room,
@@ -73,7 +73,8 @@ __decorate([
 ], GameGateway.prototype, "handleLeaveJoin", null);
 exports.GameGateway = GameGateway = __decorate([
     (0, websockets_1.WebSocketGateway)(8001, {
-        cors: { origin: 'http://localhost:3000', methods: ['GET', 'POST'] },
+        host: '157.230.49.88',
+        cors: { origin: 'http://157.230.49.88:8080', methods: ['GET', 'POST'] },
     }),
     __metadata("design:paramtypes", [game_state_service_1.GameStateService,
         games_service_1.GamesService])

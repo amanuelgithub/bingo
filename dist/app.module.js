@@ -41,12 +41,12 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
+                type: 'postgres',
                 host: 'localhost',
-                port: 3306,
+                port: 5432,
                 database: 'bingo',
-                username: 'root',
-                password: 'Cipher@man1!',
+                username: 'postgres',
+                password: 'postgres',
                 entities: [user_entity_1.User, agent_entity_1.Agent, cashier_entity_1.Cashier, branch_entity_1.Branch, game_entity_1.Game, play_entity_1.Play],
                 autoLoadEntities: true,
                 synchronize: true,

@@ -13,7 +13,7 @@ class IdGenerator {
         return IdGenerator.instance;
     }
     generateId(lastCardIndex) {
-        this.id = `${this.CARD_PREFIX}-${this.fancyCounter(lastCardIndex)}`;
+        this.id = `${lastCardIndex + 1}`;
         return this.id;
     }
     fancyCounter(index) {

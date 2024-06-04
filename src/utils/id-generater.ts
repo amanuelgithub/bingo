@@ -15,7 +15,8 @@ export class IdGenerator {
   }
 
   public generateId(lastCardIndex: number) {
-    this.id = `${this.CARD_PREFIX}-${this.fancyCounter(lastCardIndex)}`;
+    // this.id = `${this.CARD_PREFIX}-${this.fancyCounter(lastCardIndex)}`;
+    this.id = `${lastCardIndex + 1}`;
 
     return this.id;
   }
